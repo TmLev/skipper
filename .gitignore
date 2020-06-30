@@ -43,3 +43,6 @@ CTestTestfile.cmake
 ### JetBrains IDE
 .idea
 cmake-build-*/
+
+### Docker
+docker/docker-compose.yml
