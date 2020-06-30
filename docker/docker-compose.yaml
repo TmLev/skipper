@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  skipper:
+    build:
+      context: image
+      dockerfile: Dockerfile
+    container_name: skipper-image
+    cap_add:
+      - SYS_PTRACE
+    stdin_open: true
+    tty: true
+    volumes:
+      - <mount_path>:/skipper
+    ports:
+      - "127.0.0.1:2223:22"
