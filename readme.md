@@ -1,4 +1,4 @@
-# Skip List
+# Skipper
 
 ## General
 
