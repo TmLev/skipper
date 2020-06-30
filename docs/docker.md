@@ -24,7 +24,7 @@ In case you need to look around inside the container, run
 ```shell script
 bash login.sh
 ```
-All `Skipper` files are located inside `/skipper/` directory.  
+All `Skipper` files are located inside `/skipper/` directory. 
 Work with container under the same user as the one who installed it.
 
 ## Exit from container
