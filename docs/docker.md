@@ -52,7 +52,7 @@ User `user` is used for integration with CLion, don't try to log in as him manua
   ```
 - In CLion:
   1. Open `skipper` project
-  2. In `Preferences` > `Build, Execution, Deployment` > `Toolchains` create Remote Host
+  2. In `Preferences/Settings` > `Build, Execution, Deployment` > `Toolchains` create Remote Host
      and fill paths to the tools (compiler, cmake and so on) like on the screenshot below (just ignore yellow warnings): 
      ![Setup toolchain](images/toolchains.png)
      ```
@@ -61,8 +61,8 @@ User `user` is used for integration with CLion, don't try to log in as him manua
      ```
      ![Insert credentials](images/credentials.png)
   
-  3. In `Preferences` > `Build, Execution, Deployment` > `CMake` choose `Toolchain` – created above Remote Host:
+  3. In `Preferences/Settings` > `Build, Execution, Deployment` > `CMake` choose `Toolchain` – created above Remote Host:
   
   ![Setup cmake](images/cmake.png)
 
-- Now you can use `Terminal` window inside CLion.
+- Now you can log in to container using `Terminal` window inside CLion.
