@@ -39,8 +39,7 @@ bash restart.sh
 ## Important notes
 User `user` is used for integration with CLion, don't try to log in as him manually.
 
-## CLion integration
-This part is optional and for those who want to use [CLion](https://www.jetbrains.com/ru-ru/clion/).
+## CLion integration (optional)
 
 #### References
 - [Stay local, let your IDE do remote work for you!](https://blog.jetbrains.com/clion/2018/09/initial-remote-dev-support-clion/)
@@ -54,7 +53,7 @@ This part is optional and for those who want to use [CLion](https://www.jetbrain
 - In CLion:
   1. Open `skipper` project
   2. In `Preferences` > `Build, Execution, Deployment` > `Toolchains` create Remote Host
-     and fill paths to the tools (compiler, cmake and so on) like on screenshot below (nevermind the yellow warnings): 
+     and fill paths to the tools (compiler, cmake and so on) like on the screenshot below (just ignore yellow warnings): 
      ![Setup toolchain](images/toolchains.png)
      ```
      username: user
