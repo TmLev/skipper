@@ -4,7 +4,8 @@ project(skipper)
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(third-party)
+
+add_subdirectory(benchmarks)
 add_subdirectory(tests)
 
 add_executable(skipper main.cpp)
-
