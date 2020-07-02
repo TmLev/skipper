@@ -25,15 +25,17 @@ apt-get install -y \
   vim \
   gdb \
   wget \
-  autoconf
+  autoconf \
+  python3 \
+  python3-pip
 
 #  ninja-build \
 #  libboost-all-dev \
-#  python3 \
-#  python3-pip \
 #  python3-venv \
 
-#pip3 install \
+pip3 install \
+  cmake_format[YAML]
+
 #  click \
 #  gitpython \
 #  python-gitlab \
