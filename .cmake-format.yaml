@@ -1,0 +1,9 @@
+format:
+  line_width: 120
+  max_pargs_hwrap: 3
+  dangle_parens: false
+  separate_ctrl_name_with_space: true
+  require_valid_layout: true
+
+markup:
+  enable_markup: false
