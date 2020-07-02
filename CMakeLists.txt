@@ -4,28 +4,22 @@ project(skipper)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Public skipper options
 option(SKIPPER_ENABLE_TESTS "Enable testing of the skipper library" ON)
 option(SKIPPER_ENABLE_BENCHMARKS "Enable benchmarking of the skipper library" ON)
 
-foreach (p
-    SKIPPER_ENABLE_TESTS
-    SKIPPER_ENABLE_BENCHMARKS)
-    if (DEFINED p)
-        set(SKIPPER_INCLUDE_THIRD_PARTY ON)
-    endif ()
-endforeach ()
-
-if (SKIPPER_INCLUDE_THIRD_PARTY)
-    add_subdirectory(third-party)
-endif ()
+set(SKIPPER_INCLUDE_CATCH2 "Include third-party library Catch2" ${SKIPPER_ENABLE_TESTS})
+set(SKIPPER_INCLUDE_BENCHMARK "Include third-party library Google Benchmark" ${SKIPPER_ENABLE_BENCHMARKS})
+add_subdirectory(third-party)
 
 if (SKIPPER_ENABLE_TESTS)
-    add_subdirectory(tests)
+  add_subdirectory(tests)
 endif ()
 
 if (SKIPPER_ENABLE_BENCHMARKS)
-    add_subdirectory(benchmarks)
+  add_subdirectory(benchmarks)
 endif ()
 
-# Just to see if CMake actually works TODO: remove later
-add_executable(skipper main.cpp)
+# Just to see if CMake actually works
+# TODO: remove later
+add_executable(main main.cpp)
