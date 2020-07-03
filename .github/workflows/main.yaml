@@ -13,20 +13,39 @@ jobs:
       - run: sudo apt-get -y install clang-format-10
       - run: .ci-scripts/clang-format.sh
 
-#  build:
-#    name: Build CMake project
-#    runs-on: ubuntu-20.04
-#    steps:
-#      - uses: actions/checkout@v2
-#        with:
-#          submodules: true
-#      - run: .ci-scripts/build.sh
+  build:
+    name: Build CMake project
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: .ci-scripts/build.sh
+      - uses: actions/upload-artifact@v2
+        with:
+          name: tests
+          path: build/tests
+      - uses: actions/upload-artifact@v2
+        with:
+          name: benchmarks
+          path: build/benchmarks
 
-#  tests:
-#    name: Run tests
-#    runs-on: ubuntu-20.04
-#    needs: build
-#    if: ${{ needs.build.result == success }}
+  tests:
+    name: Run tests
+    runs-on: ubuntu-20.04
+    needs: build
+    if: ${{ needs.build.result == success }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: tests
+      - run: |
+          ls ..
+          ls
+          ls tests
+          ls build
+
 #
 #  benchmarks:
 #    name: Run benchmarks
