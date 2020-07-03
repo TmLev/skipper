@@ -17,16 +17,18 @@ jobs:
       workspaces:
         create:
           name: after-build
-          paths: .
+          paths:
+            - build/tests
+            - build/benchmarks
 
     - stage: tests
-      script: .ci-scripts/tests.sh
+      script: ls
       workspaces:
         use:
           - after-build
 
     - stage: benchmarks
-      script: .ci-scripts/benchmarks.sh
+      script: ls
       workspaces:
         use:
           - after-build
