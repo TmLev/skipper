@@ -8,6 +8,9 @@ set(CMAKE_CXX_STANDARD 17)
 option(SKIPPER_ENABLE_TESTS "Enable testing of the skipper library" ON)
 option(SKIPPER_ENABLE_BENCHMARKS "Enable benchmarking of the skipper library" ON)
 
+# Include skipper library
+add_subdirectory(skipper)
+
 set(SKIPPER_INCLUDE_CATCH2 "Include third-party library Catch2" ${SKIPPER_ENABLE_TESTS})
 set(SKIPPER_INCLUDE_BENCHMARK "Include third-party library Google Benchmark" ${SKIPPER_ENABLE_BENCHMARKS})
 add_subdirectory(third-party)
@@ -23,3 +26,4 @@ endif ()
 # Just to see if CMake actually works
 # TODO: remove later
 add_executable(main main.cpp)
+target_link_libraries(main sequential)
