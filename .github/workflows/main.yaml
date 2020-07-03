@@ -3,37 +3,36 @@ name: skipper-main
 on: [push]
 
 jobs:
-  checkout:
-    name: Checkout repository
+  code-style:
+    name: Code style checks
     runs-on: ubuntu-20.04
-#    outputs:
-#      repository: ${{ steps.checkout.outputs. }}
     steps:
-      - id: checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           submodules: true
-        run: echo ${{ job.steps.checkout.outputs }}
-#  code-style:
-#    name: Code style checks
-#    runs-on: ubuntu-20.04
+      - run: |
+          ls
+          ls ..
+          cd skipper
+          .ci-scripts/clang-format.sh
 
 #  build:
 #    name: Build CMake project
 #    runs-on: ubuntu-20.04
-#    outputs:
-#      build: ${{  }}
 #    steps:
+#      - uses: actions/checkout@v2
+#        with:
+#          submodules: true
 #      - run: .ci-scripts/build.sh
 
 #  tests:
-#    name: Tests
+#    name: Run tests
 #    runs-on: ubuntu-20.04
 #    needs: build
 #    if: ${{ needs.build.result == success }}
 #
 #  benchmarks:
-#    name: Benchmarks
+#    name: Run benchmarks
 #    runs-on: ubuntu-20.04
 #    needs: build
 #    if: ${{ needs.build.result == success }}
