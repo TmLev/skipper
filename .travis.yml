@@ -10,23 +10,23 @@ before_install:
 jobs:
   include:
     - stage: code-style
-      script: .travis-scripts/clang-format.sh
+      script: .ci-scripts/clang-format.sh
 
     - stage: build
-      script: .travis-scripts/build.sh
+      script: .ci-scripts/build.sh
       workspaces:
         create:
           name: after-build
           paths: .
 
     - stage: tests
-      script: .travis-scripts/tests.sh
+      script: .ci-scripts/tests.sh
       workspaces:
         use:
           - after-build
 
     - stage: benchmarks
-      script: .travis-scripts/benchmarks.sh
+      script: .ci-scripts/benchmarks.sh
       workspaces:
         use:
           - after-build
