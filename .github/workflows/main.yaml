@@ -3,14 +3,15 @@ name: skipper-main
 on: push
 
 defaults:
-  runs-on: ubuntu-20.04
 
 jobs:
 #  code-style:
 #    name: Code style checks
+#    runs-on: ubuntu-20.04
 
   build:
     name: Build CMake project
+    runs-on: ubuntu-20.04
     outputs:
       build: ${{ steps.build.outputs }}
     steps:
@@ -19,10 +20,12 @@ jobs:
 
 #  tests:
 #    name: Tests
+#    runs-on: ubuntu-20.04
 #    needs: build
 #    if: ${{ needs.build.result == success }}
 #
 #  benchmarks:
 #    name: Benchmarks
+#    runs-on: ubuntu-20.04
 #    needs: build
 #    if: ${{ needs.build.result == success }}
