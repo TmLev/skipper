@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# shellcheck disable=SC2038
+# Assumes that project was built in directory `ROOT_DIR/build`.
 
 python3 third-party/run-clang-format/run-clang-format.py \
   --clang-format-executable clang-format-10 \
-  --recursive \
   --extensions hpp,ipp,cpp \
+  --recursive \
   skipper tests benchmarks
