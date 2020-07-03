@@ -2,6 +2,10 @@ name: skipper-main
 
 on: push
 
+defaults:
+  run:
+    working-directory: .
+
 jobs:
 #  code-style:
 #    name: Code style checks
