@@ -3,9 +3,6 @@ name: skipper-main
 on: [push]
 
 jobs:
-  checkout:
-    name: Checkout repository
-    runs-on:
 #  code-style:
 #    name: Code style checks
 #    runs-on: ubuntu-20.04
