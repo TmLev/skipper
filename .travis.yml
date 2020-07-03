@@ -1,10 +1,14 @@
-# Ubuntu 20.04
-dist: focal
 language: cpp
+os: linux
+dist: focal # Ubuntu 20.04
+
+before_script:
+  - mkdir cmake-build
+  - cd cmake-build
+  - cmake ..
 
 script:
-  - cmake .
-  - cmake --build . -- -j2
+  - cmake --build .. -- -j2
 
 #jobs:
 #  include:
@@ -24,5 +28,5 @@ script:
 #        - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10"
 
 before_install:
-  - sudo apt-get -y install cmake clang-10
+  - sudo apt-get -y install clang-10
   - eval "CC=clang-10 && CXX=clang++-10"
