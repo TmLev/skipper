@@ -3,6 +3,9 @@ name: skipper-main
 on: [push]
 
 jobs:
+  checkout:
+    name: Checkout repository
+    runs-on:
 #  code-style:
 #    name: Code style checks
 #    runs-on: ubuntu-20.04
@@ -11,12 +14,8 @@ jobs:
     name: Build CMake project
     runs-on: ubuntu-20.04
     steps:
-      - run: |
-          echo "123"
-          pwd
-          ls
-          ls ..
-          ls ../..
+      - uses: actions/checkout@v2
+      - run: .ci-scripts/build.sh
 
 #  tests:
 #    name: Tests
