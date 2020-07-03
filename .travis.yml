@@ -1,14 +1,12 @@
 # Ubuntu 20.04
 dist: focal
-sudo: false
-
 language: cpp
 
 script:
   - cmake .
   - cmake --build . -- -j2
 
-matrix:
+jobs:
   include:
     - os: linux
       addons:
@@ -18,6 +16,7 @@ matrix:
             - sourceline: "deb https://apt.llvm.org/focal/ llvm-toolchain-focal-10 main"
               key_url: "https://apt.llvm.org/llvm-snapshot.gpg.key"
           packages:
+            - cmake
             - clang-10
 #            - clang-format-10
 #            - clang-tidy-10
