@@ -23,7 +23,7 @@ jobs:
       - run: .ci-scripts/build.sh
       - uses: actions/upload-artifact@v2
         with:
-          name: tests
+          name: artifact-tests
           path: build/tests
       - uses: actions/upload-artifact@v2
         with:
@@ -39,15 +39,15 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
-          name: tests
+          name: artifact-tests
       - run: |
-          ls ..
+          ls -la ../..
           echo =====================
-          ls
+          ls -la ..
           echo =====================
-          ls tests
+          ls -la
           echo =====================
-          ls build
+          ls -la tests
 
 #
 #  benchmarks:
