@@ -10,11 +10,8 @@ jobs:
   build:
     name: Build CMake project
     runs-on: ubuntu-20.04
-    outputs:
-      build: ${{ steps.build.outputs }}
     steps:
-      - id: build
-        run: |
+      - run: |
           echo "123"
           pwd
           ls
