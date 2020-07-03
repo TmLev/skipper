@@ -1,0 +1,28 @@
+name: skipper-main
+
+on: push
+
+defaults:
+  runs-on: ubuntu-20.04
+
+jobs:
+#  code-style:
+#    name: Code style checks
+
+  build:
+    name: Build CMake project
+    outputs:
+      build: ${{ steps.build.outputs }}
+    steps:
+      - id: build
+        run: .ci-scripts/build.sh
+
+#  tests:
+#    name: Tests
+#    needs: build
+#    if: ${{ needs.build.result == success }}
+#
+#  benchmarks:
+#    name: Benchmarks
+#    needs: build
+#    if: ${{ needs.build.result == success }}
