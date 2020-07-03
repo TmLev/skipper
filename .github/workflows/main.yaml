@@ -3,18 +3,28 @@ name: skipper-main
 on: [push]
 
 jobs:
+  checkout:
+    name: Checkout repository
+    runs-on: ubuntu-20.04
+#    outputs:
+#      repository: ${{ steps.checkout.outputs. }}
+    steps:
+      - id: checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+        run: echo ${{ steps.checkout.outputs }}
 #  code-style:
 #    name: Code style checks
 #    runs-on: ubuntu-20.04
 
-  build:
-    name: Build CMake project
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-      - run: .ci-scripts/build.sh
+#  build:
+#    name: Build CMake project
+#    runs-on: ubuntu-20.04
+#    outputs:
+#      build: ${{  }}
+#    steps:
+#      - run: .ci-scripts/build.sh
 
 #  tests:
 #    name: Tests
