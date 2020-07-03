@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Assume that script is running in root directory.
+# Assume that script is running in the root directory.
 
 build() {
   mkdir build && cd build
