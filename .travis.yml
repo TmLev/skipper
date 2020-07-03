@@ -17,6 +17,7 @@ jobs:
       workspaces:
         create:
           name: after-build
+          paths: .
 
     - stage: tests
       script: .travis-scripts/tests.sh
