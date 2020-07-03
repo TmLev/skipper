@@ -22,13 +22,13 @@ jobs:
             - build/benchmarks
 
     - stage: tests
-      script: ls
+      script: .ci-scripts/tests.sh
       workspaces:
         use:
           - after-build
 
     - stage: benchmarks
-      script: ls
+      script: .ci-scripts/benchmarks.sh
       workspaces:
         use:
           - after-build
