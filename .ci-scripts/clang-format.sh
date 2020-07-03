@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Assume that script is running in the root directory.
 
