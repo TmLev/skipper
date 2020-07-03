@@ -2,8 +2,6 @@ name: skipper-main
 
 on: push
 
-defaults:
-
 jobs:
 #  code-style:
 #    name: Code style checks
