@@ -3,12 +3,10 @@ os: linux
 dist: focal # Ubuntu 20.04
 
 before_script:
-  - mkdir cmake-build
-  - cd cmake-build
-  - cmake ..
+  - cmake .
 
 script:
-  - cmake --build .. -- -j2
+  - cmake --build . -- -j2
 
 #jobs:
 #  include:
