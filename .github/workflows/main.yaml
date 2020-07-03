@@ -8,12 +8,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-        with:
-          submodules: true
       - run: |
-          ls
-          ls ..
-          cd skipper
           .ci-scripts/clang-format.sh
 
 #  build:
