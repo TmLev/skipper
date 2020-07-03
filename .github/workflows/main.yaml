@@ -42,8 +42,11 @@ jobs:
           name: tests
       - run: |
           ls ..
+          echo =====================
           ls
+          echo =====================
           ls tests
+          echo =====================
           ls build
 
 #
