@@ -1,4 +1,4 @@
-name: skipper-main
+name: skipper
 
 on: [push]
 
