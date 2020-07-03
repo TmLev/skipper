@@ -37,18 +37,17 @@ jobs:
         with:
           name: build
           path: build
-      - run: |
-          ls -la ../..
-          echo =====================
-          ls -la ..
-          echo =====================
-          ls -la
-          echo =====================
-          ls -la build
+      - run: .ci-scripts/tests.sh
 
-#
-#  benchmarks:
-#    name: Run benchmarks
-#    runs-on: ubuntu-20.04
-#    needs: build
-#    if: ${{ needs.build.result == success }}
+  benchmarks:
+    name: Run benchmarks
+    runs-on: ubuntu-20.04
+    needs: build
+    if: ${{ needs.build.result == 'success' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+      - run: .ci-scripts/benchmarks.sh
