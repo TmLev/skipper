@@ -19,6 +19,7 @@ jobs:
           pwd
           ls
           ls ..
+          ls ../..
 
 #  tests:
 #    name: Tests
