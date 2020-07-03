@@ -4,7 +4,10 @@
 
 int main() {
   auto countdown = std::vector{1, 2, 3};
-  Print(countdown, ", ");
+  Print(
+      countdown,
+      ", "
+);
   std::cout << "! Skipper, we are ready!" << std::endl;
   return 0;
 }
