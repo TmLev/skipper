@@ -2,10 +2,6 @@ name: skipper-main
 
 on: push
 
-defaults:
-  run:
-    working-directory: .
-
 jobs:
 #  code-style:
 #    name: Code style checks
@@ -18,7 +14,7 @@ jobs:
       build: ${{ steps.build.outputs }}
     steps:
       - id: build
-        run: .ci-scripts/build.sh
+        run: ls
 
 #  tests:
 #    name: Tests
