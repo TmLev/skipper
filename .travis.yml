@@ -9,7 +9,7 @@ before_install:
 
 jobs:
   include:
-    - stage: code style
+    - stage: code-style
       script: .travis-scripts/clang-format.sh
 
     - stage: build
@@ -29,3 +29,9 @@ jobs:
       workspaces:
         use:
           - after-build
+
+stages:
+  - code-style
+  - build
+  - tests
+  - benchmarks
