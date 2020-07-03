@@ -1,6 +1,6 @@
 name: skipper-main
 
-on: push
+on: [push]
 
 jobs:
 #  code-style:
@@ -14,7 +14,11 @@ jobs:
       build: ${{ steps.build.outputs }}
     steps:
       - id: build
-        run: ls
+        run: |
+          echo "123"
+          pwd
+          ls
+          ls ..
 
 #  tests:
 #    name: Tests
