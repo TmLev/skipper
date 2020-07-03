@@ -10,8 +10,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - run: |
-          .ci-scripts/clang-format.sh
+      - run: sudo apt-get -y install clang-format-10
+      - run: .ci-scripts/clang-format.sh
 
 #  build:
 #    name: Build CMake project
