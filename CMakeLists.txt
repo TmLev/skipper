@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 option(SKIPPER_ENABLE_TESTS "Enable testing of the skipper library" ON)
 option(SKIPPER_ENABLE_BENCHMARKS "Enable benchmarking of the skipper library" ON)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Include skipper library
 add_subdirectory(skipper)
 
