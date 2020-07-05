@@ -18,6 +18,7 @@ apt-get install -y \
   clang-10 \
   clang-format-10 \
   clang-tidy-10 \
+  cppcheck \
   ca-certificates \
   openssh-server \
   rsync \
