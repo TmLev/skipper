@@ -1,8 +1,23 @@
 ---
-Checks: '-*,cppcoreguidelines-avoid-goto,cppcoreguidelines-pro-type-const-cast, google-runtime-int,
-         modernize-use-nullptr, readability-braces-around-statements, readability-container-size-empty,
-         readability-redundant-control-flow, readability-identifier-naming, readability-simplify-boolean-expr,
-         google-build-using-namespace'
+Checks: >
+  -*,
+  cppcoreguidelines-avoid-goto,
+  cppcoreguidelines-init-variables,
+  cppcoreguidelines-pro-type-const-cast,
+  google-build-using-namespace,
+  google-runtime-int,
+  modernize-avoid-c-arrays,
+  modernize-make-shared,
+  modernize-make-unique,
+  modernize-use-auto,
+  modernize-use-equals-default,
+  modernize-use-nullptr,
+  modernize-use-override,
+  readability-braces-around-statements,
+  readability-container-size-empty,
+  readability-identifier-naming,
+  readability-redundant-control-flow,
+  readability-simplify-boolean-expr
 WarningsAsErrors: '*'
 HeaderFilterRegex: '\.(h|i)pp$'
 
