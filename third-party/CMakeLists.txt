@@ -6,6 +6,12 @@ if (SKIPPER_INCLUDE_CATCH2)
   set(CATCH_BUILD_TESTING
       OFF
       CACHE BOOL "Build SelfTest project.")
+  set(CATCH_INSTALL_DOCS
+      OFF
+      CACHE BOOL "Install documentation alongside library")
+  set(CATCH_INSTALL_HELPERS
+      OFF
+      CACHE BOOL "Install contrib alongside library")
 
   add_subdirectory(Catch2)
 endif ()
@@ -17,6 +23,9 @@ if (SKIPPER_INCLUDE_BENCHMARK)
   set(BENCHMARK_ENABLE_INSTALL
       OFF
       CACHE BOOL "Enable installation of benchmark.")
+  set(BENCHMARK_ENABLE_GTEST_TESTS
+      OFF
+      CACHE BOOL "Enable building the unit tests which depend on gtest")
 
   add_subdirectory(benchmark)
 endif ()
