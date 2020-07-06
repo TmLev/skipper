@@ -1,2 +1,2 @@
-add_library(sequential INTERFACE)
-target_include_directories(sequential INTERFACE .)
+add_library(skipper INTERFACE)
+target_include_directories(skipper INTERFACE .)
