@@ -1,2 +1,3 @@
 add_executable(test_catch2_works test_catch2_works.cpp)
 target_link_libraries(test_catch2_works PRIVATE Catch2::Catch2)
+target_link_libraries(test_catch2_works PRIVATE skipper)

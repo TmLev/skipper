@@ -1,2 +1,3 @@
 add_executable(benchmark_works benchmark_works.cpp)
 target_link_libraries(benchmark_works PRIVATE benchmark::benchmark)
+target_link_libraries(benchmark_works PRIVATE skipper)
