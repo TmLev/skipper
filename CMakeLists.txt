@@ -28,4 +28,4 @@ endif ()
 # Just to see if CMake actually works
 # TODO: remove later
 add_executable(main main.cpp)
-target_link_libraries(main skipper)
+target_link_libraries(main PRIVATE skipper)
