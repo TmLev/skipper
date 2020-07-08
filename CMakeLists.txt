@@ -11,7 +11,8 @@ option(SKIPPER_ENABLE_BENCHMARKS "Enable benchmarking of the skipper library" ON
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Include skipper library
-add_subdirectory(skipper)
+add_library(skipper INTERFACE)
+target_include_directories(skipper INTERFACE include)
 
 set(SKIPPER_INCLUDE_CATCH2 "Include third-party library Catch2" ${SKIPPER_ENABLE_TESTS})
 set(SKIPPER_INCLUDE_BENCHMARK "Include third-party library Google Benchmark" ${SKIPPER_ENABLE_BENCHMARKS})
