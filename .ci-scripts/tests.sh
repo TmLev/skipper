@@ -4,6 +4,7 @@
 
 test_names=(
   "test_catch2_works"
+  "test_include_works"
 )
 
 run_tests() {
