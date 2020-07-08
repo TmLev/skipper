@@ -7,10 +7,10 @@
 namespace skipper {
 
 template <class T>
-auto Print(const std::vector<T>& vector, const std::string_view& delimiter)
-    -> void {
+auto Print(const std::vector<T>& vector, const std::string_view& delimiter,
+           std::ostream& out) -> void {
   std::copy(vector.begin(), vector.end(),
-            std::experimental::make_ostream_joiner(std::cout, delimiter));
+            std::experimental::make_ostream_joiner(out, delimiter));
 }
 
 }  // namespace skipper
