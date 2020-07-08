@@ -9,5 +9,4 @@ auto Print(const std::vector<T>& vector, const std::string_view& delimiter)
 
 }  // namespace skipper
 
-// TODO: fix CMake to specify full path (skipper/sequential.ipp)
-#include "sequential.ipp"
+#include "skipper/sequential.ipp"
