@@ -14,6 +14,7 @@ apt-get install -y \
   ssh \
   make \
   cmake \
+  ccache \
   git \
   clang-10 \
   clang-format-10 \
@@ -30,15 +31,5 @@ apt-get install -y \
   python3 \
   python3-pip
 
-#  ninja-build \
-#  libboost-all-dev \
-#  python3-venv \
-
 pip3 install \
   cmake_format[YAML]
-
-#  click \
-#  gitpython \
-#  python-gitlab \
-#  termcolor \
-#  virtualenv

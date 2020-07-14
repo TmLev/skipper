@@ -6,6 +6,8 @@ project(
   DESCRIPTION "Various Skip List Implementations"
   LANGUAGES CXX)
 
+include(cmake/Ccache.cmake)
+
 set(CMAKE_CXX_STANDARD 17)
 
 # Public skipper options
