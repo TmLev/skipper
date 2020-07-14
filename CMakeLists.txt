@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(skipper)
+project(
+  skipper
+  VERSION 0.1.0
+  DESCRIPTION "Various Skip List Implementations"
+  LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
