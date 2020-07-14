@@ -7,6 +7,7 @@ project(
   LANGUAGES CXX)
 
 include(cmake/Ccache.cmake)
+include(cmake/StaticAnalyzers.cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 
