@@ -1,4 +1,4 @@
-option(ENABLE_CLANG_TIDY "Enable static analysis with clang-tidy" ON)
+option(ENABLE_CLANG_TIDY "Enable static analysis with clang-tidy" OFF)
 if (NOT ENABLE_CLANG_TIDY)
   message(STATUS "clang-tidy is disabled")
   return()
