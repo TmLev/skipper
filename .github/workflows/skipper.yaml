@@ -17,6 +17,7 @@ jobs:
     name: Build CMake project
     runs-on: ubuntu-20.04
     steps:
+      - run: sudo apt-get -y install ccache clang-tidy-10
       - uses: actions/checkout@v2
         with:
           submodules: true
