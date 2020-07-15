@@ -10,6 +10,7 @@ test_names=(
 run_tests() {
   cd build/tests
   for test in "${test_names[@]}"; do
+    echo "Running \"$test\"..."
     chmod +x "$test" && ./"$test"
   done
 }
