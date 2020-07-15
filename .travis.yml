@@ -10,10 +10,10 @@ before_install:
 jobs:
   include:
     - stage: code-style
-      script: .ci-scripts/clang-format.sh
+      script: scripts/clang-format.sh
 
     - stage: build
-      script: .ci-scripts/build.sh
+      script: scripts/build.sh
       workspaces:
         create:
           name: after-build
@@ -22,13 +22,13 @@ jobs:
             - build/benchmarks
 
     - stage: tests
-      script: .ci-scripts/tests.sh
+      script: scripts/tests.sh
       workspaces:
         use:
           - after-build
 
     - stage: benchmarks
-      script: .ci-scripts/benchmarks.sh
+      script: scripts/benchmarks.sh
       workspaces:
         use:
           - after-build
