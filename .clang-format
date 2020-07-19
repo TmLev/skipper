@@ -1,7 +1,14 @@
-BasedOnStyle: Google
 Language: Cpp
+BasedOnStyle: Google
+
+AlignConsecutiveAssignments: true
+AlignEscapedNewlines: Left
+AlignTrailingComments: true
+
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: Never
+
 DerivePointerAlignment: false
 PointerAlignment: Left
-SortIncludes: false
+
+IncludeBlocks: Regroup
