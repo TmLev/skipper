@@ -9,3 +9,5 @@ AllowShortIfStatementsOnASingleLine: Never
 
 DerivePointerAlignment: false
 PointerAlignment: Left
+
+SortIncludes: false
