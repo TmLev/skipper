@@ -1,7 +1,6 @@
 Language: Cpp
 BasedOnStyle: Google
 
-AlignConsecutiveAssignments: true
 AlignEscapedNewlines: Left
 AlignTrailingComments: true
 
@@ -10,5 +9,3 @@ AllowShortIfStatementsOnASingleLine: Never
 
 DerivePointerAlignment: false
 PointerAlignment: Left
-
-IncludeBlocks: Regroup
