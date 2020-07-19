@@ -1,7 +1,7 @@
-#include <mutex>
-#include <memory>
-
 #include <benchmark/benchmark.h>
+
+#include <memory>
+#include <mutex>
 
 int counter = 0;
 std::shared_ptr<std::mutex> mutex;
