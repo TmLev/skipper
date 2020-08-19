@@ -1,7 +1,5 @@
-add_executable(test_catch2_works test_catch2_works.cpp)
-target_link_libraries(test_catch2_works PRIVATE Catch2::Catch2)
-target_link_libraries(test_catch2_works PRIVATE skipper)
-
-add_executable(test_include_works test_include_works.cpp)
-target_link_libraries(test_include_works PRIVATE Catch2::Catch2)
-target_link_libraries(test_include_works PRIVATE skipper)
+add_executable(test_sequential_skip_list
+  test_catch2_main.cpp
+  test_sequential_skip_list.cpp)
+target_link_libraries(test_sequential_skip_list PRIVATE Catch2::Catch2)
+target_link_libraries(test_sequential_skip_list PRIVATE skipper)
