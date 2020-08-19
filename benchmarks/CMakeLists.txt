@@ -1,3 +1,3 @@
-add_executable(benchmark_works benchmark_works.cpp)
-target_link_libraries(benchmark_works PRIVATE benchmark::benchmark)
-target_link_libraries(benchmark_works PRIVATE skipper)
+add_executable(benchmark_sequential_skip_list benchmark_sequential_skip_list.cpp)
+target_link_libraries(benchmark_sequential_skip_list PRIVATE benchmark::benchmark_main)
+target_link_libraries(benchmark_sequential_skip_list PRIVATE skipper)
