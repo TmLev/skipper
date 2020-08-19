@@ -70,7 +70,7 @@ struct MovableOnly {
  public:
   MovableOnly() = default;
 
-  explicit MovableOnly(std::ostream* output) : output(output) {
+  explicit MovableOnly(std::ostream* o) : output(o) {
     if (output) {
       *output << "ctor";
     }

@@ -18,7 +18,7 @@ namespace skipper {
 template <typename T>
 struct SequentialSkipList<T>::Node {
  public:
-  Node(T value, Level level);
+  Node(T v, Level level);
 
   auto Next() const -> Node*;
 
@@ -28,8 +28,8 @@ struct SequentialSkipList<T>::Node {
 };
 
 template <typename T>
-SequentialSkipList<T>::Node::Node(T value, Level level)
-    : value(std::move(value)), forward(static_cast<std::size_t>(level) + 1) {
+SequentialSkipList<T>::Node::Node(T v, Level level)
+    : value(std::move(v)), forward(static_cast<std::size_t>(level) + 1) {
 }
 
 template <typename T>
