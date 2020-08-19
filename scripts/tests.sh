@@ -3,8 +3,7 @@
 # Assume that project was built in directory `ROOT_DIR/build`.
 
 test_names=(
-  "test_catch2_works"
-  "test_include_works"
+  "test_sequential_skip_list"
 )
 
 run_tests() {
