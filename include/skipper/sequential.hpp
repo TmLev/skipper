@@ -51,16 +51,16 @@ class SequentialSkipList {
   ~SequentialSkipList() = default;
 
   // STL set-like interface
-  auto Find(const T& value) -> Iterator;
+  auto Find(const T& value) const -> Iterator;
   auto Insert(const T& value) -> std::pair<Iterator, bool>;
   auto Erase(const T& value) -> std::size_t;
 
   // Iteration interface
-  auto Begin() -> Iterator;
-  auto End() -> Iterator;
+  auto Begin() const -> Iterator;
+  auto End() const -> Iterator;
 
  private:
-  auto GenerateRandomLevel() -> Level;
+  auto GenerateRandomLevel() const -> Level;
 
  private:
   Level level_{0};

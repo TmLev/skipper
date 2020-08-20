@@ -111,7 +111,7 @@ auto SequentialSkipList<T>::Iterator::operator!=(
 //   19->forward[1]->value = 21 > 20 -> last level, value not found
 //
 template <typename T>
-auto SequentialSkipList<T>::Find(const T& value)
+auto SequentialSkipList<T>::Find(const T& value) const
     -> SequentialSkipList::Iterator {
   auto node = head_;
 
@@ -258,12 +258,12 @@ auto SequentialSkipList<T>::Erase(const T& value) -> std::size_t {
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Begin() -> SequentialSkipList::Iterator {
+auto SequentialSkipList<T>::Begin() const -> SequentialSkipList::Iterator {
   return Iterator{head_->Next()};
 }
 
 template <typename T>
-auto SequentialSkipList<T>::End() -> SequentialSkipList::Iterator {
+auto SequentialSkipList<T>::End() const -> SequentialSkipList::Iterator {
   return Iterator{nullptr};
 }
 
@@ -273,7 +273,8 @@ auto SequentialSkipList<T>::End() -> SequentialSkipList::Iterator {
 ////
 
 template <typename T>
-auto SequentialSkipList<T>::GenerateRandomLevel() -> SequentialSkipList::Level {
+auto SequentialSkipList<T>::GenerateRandomLevel() const
+    -> SequentialSkipList::Level {
   // TODO(Lev): extract random engine to a template callable
   //            with "toss a coin"-like interface and provide default one
   auto level = Level{0};
