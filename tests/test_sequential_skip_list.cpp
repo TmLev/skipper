@@ -66,6 +66,14 @@ TEST_CASE("Erase() erases same element only once") {
   REQUIRE(skip_list.Erase(1) == 0);
 }
 
+TEST_CASE("Iterator::operator->() returns pointer to value") {
+  auto skip_list = SSL<std::string>{};
+  auto value = std::string{"123"};
+  skip_list.Insert(value);
+  auto it = skip_list.Find(value);
+  REQUIRE(it->size() == value.size());
+}
+
 struct MovableOnly {
  public:
   MovableOnly() = default;

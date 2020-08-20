@@ -53,6 +53,11 @@ auto SequentialSkipList<T>::Iterator::operator*() const -> const T& {
 }
 
 template <typename T>
+auto SequentialSkipList<T>::Iterator::operator->() const -> const T* {
+  return &ptr_->value;
+}
+
+template <typename T>
 auto SequentialSkipList<T>::Iterator::operator++(/* prefix */)
     -> SequentialSkipList::Iterator& {
   ptr_ = ptr_->Next();
