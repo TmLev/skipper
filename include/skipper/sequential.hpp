@@ -16,11 +16,11 @@ class SequentialSkipList {
   using Level = int;
   using Probability = double;
 
-  static constexpr Level kMaxLevel = 4;
-  static constexpr Probability kProbability = 0.2;
-
   using NodePtr = std::shared_ptr<Node>;
   using ForwardNodePtrs = std::vector<NodePtr>;
+
+  static constexpr Level kMaxLevel = 4;
+  static constexpr Probability kProbability = 0.2;
 
   static constexpr bool kSupportsMove = false;
 
