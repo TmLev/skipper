@@ -4,10 +4,10 @@
 #include <set>
 #include <vector>
 
-#include "skipper/sequential.hpp"
+#include "skipper/sequential_set.hpp"
 
 template <typename T>
-using SSL = skipper::SequentialSkipList<T>;
+using SL = skipper::SequentialSkipListSet<T>;
 
 static auto GenerateRandomNumbers(std::size_t count) -> std::vector<int> {
   auto result = std::vector<int>{};
@@ -38,12 +38,12 @@ static auto SetInsertComplexity(benchmark::State& state) -> void {
   state.SetComplexityN(n);
 }
 
-static auto SSLInsertComplexity(benchmark::State& state) -> void {
+static auto SSLSInsertComplexity(benchmark::State& state) -> void {
   auto n = state.range(0);
   auto random_numbers = GenerateRandomNumbers(static_cast<std::size_t>(n));
 
   for (auto _ : state) {
-    auto skip_list = SSL<int>{};
+    auto skip_list = SL<int>{};
     for (auto number : random_numbers) {
       skip_list.Insert(number);
     }
@@ -55,6 +55,6 @@ static auto SSLInsertComplexity(benchmark::State& state) -> void {
 BENCHMARK(SetInsertComplexity)
     ->DenseRange(1'000, 10'000, 1'000)
     ->Complexity(benchmark::oNLogN);
-BENCHMARK(SSLInsertComplexity)
+BENCHMARK(SSLSInsertComplexity)
     ->DenseRange(1'000, 10'000, 1'000)
     ->Complexity(benchmark::oNLogN);

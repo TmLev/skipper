@@ -1,5 +1,5 @@
-#ifndef SKIPPER_SEQUENTIAL_HPP
-#define SKIPPER_SEQUENTIAL_HPP
+#ifndef SKIPPER_SEQUENTIAL_SET_HPP
+#define SKIPPER_SEQUENTIAL_SET_HPP
 
 #include <iostream>
 #include <memory>
@@ -8,7 +8,7 @@
 namespace skipper {
 
 template <typename T>
-class SequentialSkipList {
+class SequentialSkipListSet {
  private:
   struct Node;  // Forward declaration for Iterator
 
@@ -41,15 +41,15 @@ class SequentialSkipList {
   };
 
  public:
-  SequentialSkipList() = default;
+  SequentialSkipListSet() = default;
 
   // TODO(Lev): investigate possible dangers of default ones
-  SequentialSkipList(SequentialSkipList&& other) = delete;
-  SequentialSkipList(const SequentialSkipList& other) = delete;
-  SequentialSkipList& operator=(SequentialSkipList&& other) = delete;
-  SequentialSkipList& operator=(const SequentialSkipList& other) = delete;
+  SequentialSkipListSet(SequentialSkipListSet&& other) = delete;
+  SequentialSkipListSet(const SequentialSkipListSet& other) = delete;
+  SequentialSkipListSet& operator=(SequentialSkipListSet&& other) = delete;
+  SequentialSkipListSet& operator=(const SequentialSkipListSet& other) = delete;
 
-  ~SequentialSkipList() = default;
+  ~SequentialSkipListSet() = default;
 
   // STL set-like interface
   auto Find(const T& value) const -> Iterator;
@@ -70,6 +70,6 @@ class SequentialSkipList {
 
 }  // namespace skipper
 
-#endif  // SKIPPER_SEQUENTIAL_HPP
+#endif  // SKIPPER_SEQUENTIAL_SET_HPP
 
-#include "skipper/sequential.ipp"
+#include "skipper/sequential_set.ipp"

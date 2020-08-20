@@ -3,7 +3,7 @@
 # Assume that project was built in directory `ROOT_DIR/build`.
 
 test_names=(
-  "test_sequential_skip_list"
+  "test_sequential_set"
 )
 
 run_tests() {

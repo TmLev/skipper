@@ -3,7 +3,7 @@
 # Assume that project was built in directory `ROOT_DIR/build`.
 
 benchmark_names=(
-  "benchmark_sequential_skip_list"
+  "benchmark_sequential_set"
 )
 
 run_benchmarks() {

@@ -1,22 +1,22 @@
-#ifndef SKIPPER_SEQUENTIAL_IPP
-#define SKIPPER_SEQUENTIAL_IPP
+#ifndef SKIPPER_SEQUENTIAL_SET_IPP
+#define SKIPPER_SEQUENTIAL_SET_IPP
 
 #include <algorithm>
 #include <iostream>
 #include <memory>
 #include <utility>
 
-#include "sequential.hpp"
+#include "skipper/sequential_set.hpp"
 
 namespace skipper {
 
 ////////////////////////////////////////////////////////////////////////////////
 ////
-//// SequentialSkipList::Node
+//// SequentialSkipListSet::Node
 ////
 
 template <typename T>
-struct SequentialSkipList<T>::Node {
+struct SequentialSkipListSet<T>::Node {
  public:
   Node(T v, Level level);
 
@@ -28,65 +28,66 @@ struct SequentialSkipList<T>::Node {
 };
 
 template <typename T>
-SequentialSkipList<T>::Node::Node(T v, Level level)
+SequentialSkipListSet<T>::Node::Node(T v, Level level)
     : value(std::move(v)), forward(static_cast<std::size_t>(level) + 1) {
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Node::Next() const -> SequentialSkipList<T>::Node* {
+auto SequentialSkipListSet<T>::Node::Next() const
+    -> SequentialSkipListSet<T>::Node* {
   return forward[0].get();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////
-//// SequentialSkipList::Iterator
+//// SequentialSkipListSet::Iterator
 ////
 
 template <typename T>
-SequentialSkipList<T>::Iterator::Iterator(SequentialSkipList::Node* ptr)
+SequentialSkipListSet<T>::Iterator::Iterator(SequentialSkipListSet::Node* ptr)
     : ptr_(ptr) {
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Iterator::operator*() const -> const T& {
+auto SequentialSkipListSet<T>::Iterator::operator*() const -> const T& {
   return ptr_->value;
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Iterator::operator->() const -> const T* {
+auto SequentialSkipListSet<T>::Iterator::operator->() const -> const T* {
   return &ptr_->value;
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Iterator::operator++(/* prefix */)
-    -> SequentialSkipList::Iterator& {
+auto SequentialSkipListSet<T>::Iterator::operator++(/* prefix */)
+    -> SequentialSkipListSet::Iterator& {
   ptr_ = ptr_->Next();
   return *this;
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Iterator::operator++(int /* postfix */)
-    -> SequentialSkipList::Iterator {
+auto SequentialSkipListSet<T>::Iterator::operator++(int /* postfix */)
+    -> SequentialSkipListSet::Iterator {
   auto copy = *this;
   ++(*this);
   return copy;
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Iterator::operator==(
-    const SequentialSkipList::Iterator& other) const -> bool {
+auto SequentialSkipListSet<T>::Iterator::operator==(
+    const SequentialSkipListSet::Iterator& other) const -> bool {
   return ptr_ == other.ptr_;
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Iterator::operator!=(
-    const SequentialSkipList::Iterator& other) const -> bool {
+auto SequentialSkipListSet<T>::Iterator::operator!=(
+    const SequentialSkipListSet::Iterator& other) const -> bool {
   return !(*this == other);  // NOLINT (simplification will lead to recursion)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////
-//// SequentialSkipList: public interface
+//// SequentialSkipListSet: public interface
 ////
 
 // Example: searching for 20 in SkipList illustrated below
@@ -116,8 +117,8 @@ auto SequentialSkipList<T>::Iterator::operator!=(
 //   19->forward[1]->value = 21 > 20 -> last level, value not found
 //
 template <typename T>
-auto SequentialSkipList<T>::Find(const T& value) const
-    -> SequentialSkipList::Iterator {
+auto SequentialSkipListSet<T>::Find(const T& value) const
+    -> SequentialSkipListSet::Iterator {
   auto node = head_;
 
   for (auto level = level_; level >= 0; --level) {
@@ -188,7 +189,7 @@ auto SequentialSkipList<T>::Find(const T& value) const
 // └––┘   └––┘   └––┘   └––┘   └––┘   └––┘   └––┘   └––┘
 //
 template <typename T>
-auto SequentialSkipList<T>::Insert(const T& value)
+auto SequentialSkipListSet<T>::Insert(const T& value)
     -> std::pair<Iterator, bool> {
   // TODO(Lev): extract traversing and optional collecting of `update` nodes
   auto node = head_;
@@ -227,7 +228,7 @@ auto SequentialSkipList<T>::Insert(const T& value)
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Erase(const T& value) -> std::size_t {
+auto SequentialSkipListSet<T>::Erase(const T& value) -> std::size_t {
   auto node = head_;
   auto update = ForwardNodePtrs{kMaxLevel + 1};
 
@@ -263,23 +264,24 @@ auto SequentialSkipList<T>::Erase(const T& value) -> std::size_t {
 }
 
 template <typename T>
-auto SequentialSkipList<T>::Begin() const -> SequentialSkipList::Iterator {
+auto SequentialSkipListSet<T>::Begin() const
+    -> SequentialSkipListSet::Iterator {
   return Iterator{head_->Next()};
 }
 
 template <typename T>
-auto SequentialSkipList<T>::End() const -> SequentialSkipList::Iterator {
+auto SequentialSkipListSet<T>::End() const -> SequentialSkipListSet::Iterator {
   return Iterator{nullptr};
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////
-//// SequentialSkipList: private interface
+//// SequentialSkipListSet: private interface
 ////
 
 template <typename T>
-auto SequentialSkipList<T>::GenerateRandomLevel() const
-    -> SequentialSkipList::Level {
+auto SequentialSkipListSet<T>::GenerateRandomLevel() const
+    -> SequentialSkipListSet::Level {
   // TODO(Lev): extract random engine to a template callable
   //            with "toss a coin"-like interface and provide default one
   auto level = Level{0};
@@ -292,4 +294,4 @@ auto SequentialSkipList<T>::GenerateRandomLevel() const
 
 }  // namespace skipper
 
-#endif  // SKIPPER_SEQUENTIAL_IPP
+#endif  // SKIPPER_SEQUENTIAL_SET_IPP

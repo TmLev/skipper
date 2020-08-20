@@ -4,24 +4,24 @@
 #include <utility>
 #include <vector>
 
-#include "skipper/sequential.hpp"
+#include "skipper/sequential_set.hpp"
 
 template <typename T>
-using SSL = skipper::SequentialSkipList<T>;
+using SL = skipper::SequentialSkipListSet<T>;
 
 TEST_CASE("Empty SSL has same Begin() and End() iterators") {
-  auto skip_list = SSL<int>{};
+  auto skip_list = SL<int>{};
   REQUIRE(skip_list.Begin() == skip_list.End());
 }
 
 TEST_CASE("Find() in empty SSL returns End() iterator") {
-  auto skip_list = SSL<int>{};
+  auto skip_list = SL<int>{};
   auto it = skip_list.Find(2);
   REQUIRE(it == skip_list.End());
 }
 
 TEST_CASE("Insert()-ing same element returns same iterator") {
-  auto skip_list = SSL<int>{};
+  auto skip_list = SL<int>{};
 
   auto [it, success] = skip_list.Insert(1);
   REQUIRE(success);
@@ -39,7 +39,7 @@ TEST_CASE("Insert()-ing same element returns same iterator") {
 }
 
 TEST_CASE("Insert() maintains sortedness") {
-  auto skip_list = SSL<int>{};
+  auto skip_list = SL<int>{};
 
   skip_list.Insert(2);
   skip_list.Insert(1);
@@ -54,12 +54,12 @@ TEST_CASE("Insert() maintains sortedness") {
 }
 
 TEST_CASE("Erase() does nothing if SSL is empty") {
-  auto skip_list = SSL<int>{};
+  auto skip_list = SL<int>{};
   REQUIRE(skip_list.Erase(0) == 0);
 }
 
 TEST_CASE("Erase() erases same element only once") {
-  auto skip_list = SSL<int>{};
+  auto skip_list = SL<int>{};
   skip_list.Insert(1);
   REQUIRE(skip_list.Erase(1) == 1);
   REQUIRE(skip_list.Erase(1) == 0);
@@ -67,7 +67,7 @@ TEST_CASE("Erase() erases same element only once") {
 }
 
 TEST_CASE("Iterator::operator->() returns pointer to value") {
-  auto skip_list = SSL<std::string>{};
+  auto skip_list = SL<std::string>{};
   auto value = std::string{"123"};
   skip_list.Insert(value);
   auto it = skip_list.Find(value);
@@ -114,7 +114,7 @@ auto operator<(const MovableOnly& left, const MovableOnly& right) -> bool {
 }
 
 TEST_CASE("Insert() supports movable-only objects", "[!hide]") {
-  using SSLuptr = SSL<std::unique_ptr<int>>;
+  using SSLuptr = SL<std::unique_ptr<int>>;
 
   if constexpr (SSLuptr::kSupportsMove) {
     auto skip_list = SSLuptr{};
@@ -122,7 +122,7 @@ TEST_CASE("Insert() supports movable-only objects", "[!hide]") {
     skip_list.Insert(std::move(ptr));
   }
 
-  using SSLmo = SSL<MovableOnly>;
+  using SSLmo = SL<MovableOnly>;
   if constexpr (SSLmo::kSupportsMove) {
     auto ss = std::stringstream{};
     {
