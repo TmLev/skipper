@@ -1,5 +1,5 @@
-#ifndef SKIPPER_UTILS_RANDOM_H
-#define SKIPPER_UTILS_RANDOM_H
+#ifndef SKIPPER_UTILS_RANDOM_HPP
+#define SKIPPER_UTILS_RANDOM_HPP
 
 #include <vector>
 #include <random>
@@ -19,4 +19,4 @@ auto GenerateNumbers(std::size_t count, int min = -100, int max = 100)
   return numbers;
 }
 
-#endif  // SKIPPER_UTILS_RANDOM_H
+#endif  // SKIPPER_UTILS_RANDOM_HPP
