@@ -119,18 +119,7 @@ auto SequentialSkipListSet<T>::Iterator::operator!=(
 template <typename T>
 auto SequentialSkipListSet<T>::Find(const T& value) const
     -> SequentialSkipListSet::Iterator {
-  auto node = head_;
-
-  for (auto level = level_; level >= 0; --level) {
-    auto i = static_cast<std::size_t>(level);
-    while (node->forward[i] && node->forward[i]->value < value) {
-      node = node->forward[i];
-    }
-  }
-
-  node = node->forward[0];
-
-  if (node && node->value == value) {
+  if (auto node = Traverse(value); node && node->value == value) {
     return Iterator{node.get()};
   } else {
     return End();
@@ -191,19 +180,8 @@ auto SequentialSkipListSet<T>::Find(const T& value) const
 template <typename T>
 auto SequentialSkipListSet<T>::Insert(const T& value)
     -> std::pair<Iterator, bool> {
-  // TODO(Lev): extract traversing and optional collecting of `update` nodes
-  auto node = head_;
   auto update = ForwardNodePtrs{kMaxLevel + 1};
-
-  for (auto level = level_; level >= 0; --level) {
-    auto i = static_cast<std::size_t>(level);
-    while (node->forward[i] && node->forward[i]->value < value) {
-      node = node->forward[i];
-    }
-    update[i] = node;
-  }
-
-  node = node->forward[0];
+  auto node = Traverse(value, &update);
 
   // Test for equality without using operator==
   // (at this point, value is guaranteed to be lesser or equal to node->value)
@@ -229,18 +207,8 @@ auto SequentialSkipListSet<T>::Insert(const T& value)
 
 template <typename T>
 auto SequentialSkipListSet<T>::Erase(const T& value) -> std::size_t {
-  auto node = head_;
   auto update = ForwardNodePtrs{kMaxLevel + 1};
-
-  for (auto level = level_; level >= 0; --level) {
-    auto i = static_cast<std::size_t>(level);
-    while (node->forward[i] && node->forward[i]->value < value) {
-      node = node->forward[i];
-    }
-    update[i] = node;
-  }
-
-  node = node->forward[0];
+  auto node = Traverse(value, &update);
 
   // Test for inequality without using operator==
   // (at this point, value is guaranteed to be lesser or equal to node->value)
@@ -278,6 +246,25 @@ auto SequentialSkipListSet<T>::End() const -> SequentialSkipListSet::Iterator {
 ////
 //// SequentialSkipListSet: private interface
 ////
+
+template <typename T>
+auto SequentialSkipListSet<T>::Traverse(
+    const T& value, SequentialSkipListSet::ForwardNodePtrs* update) const
+    -> SequentialSkipListSet::NodePtr {
+  auto node = head_;
+
+  for (auto level = level_; level >= 0; --level) {
+    auto i = static_cast<std::size_t>(level);
+    while (node->forward[i] && node->forward[i]->value < value) {
+      node = node->forward[i];
+    }
+    if (update) {
+      (*update)[i] = node;
+    }
+  }
+
+  return node->forward[0];
+}
 
 template <typename T>
 auto SequentialSkipListSet<T>::GenerateRandomLevel() const
