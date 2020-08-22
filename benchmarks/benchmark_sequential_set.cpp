@@ -4,29 +4,17 @@
 #include <set>
 #include <vector>
 
+#include "../utils/random.hpp"
+
 #include "skipper/sequential_set.hpp"
 
 template <typename T>
 using SL = skipper::SequentialSkipListSet<T>;
 
-static auto GenerateRandomNumbers(std::size_t count) -> std::vector<int> {
-  auto result = std::vector<int>{};
-  result.reserve(count);
-
-  auto rd = std::random_device{};
-  auto gen = std::mt19937{rd()};
-  auto dis = std::uniform_int_distribution<>{0, 2'000'000};
-
-  for (auto i = std::size_t{0}; i < count; ++i) {
-    result.push_back(dis(gen));
-  }
-
-  return result;
-}
-
 static auto SetInsertComplexity(benchmark::State& state) -> void {
   auto n = state.range(0);
-  auto random_numbers = GenerateRandomNumbers(static_cast<std::size_t>(n));
+  auto random_numbers =
+      GenerateNumbers(static_cast<std::size_t>(n), 0, 2'000'000);
 
   for (auto _ : state) {
     auto set = std::set<int>{};
@@ -40,7 +28,8 @@ static auto SetInsertComplexity(benchmark::State& state) -> void {
 
 static auto SSLSInsertComplexity(benchmark::State& state) -> void {
   auto n = state.range(0);
-  auto random_numbers = GenerateRandomNumbers(static_cast<std::size_t>(n));
+  auto random_numbers =
+      GenerateNumbers(static_cast<std::size_t>(n), 0, 2'000'000);
 
   for (auto _ : state) {
     auto skip_list = SL<int>{};
