@@ -19,10 +19,10 @@ class SequentialSkipListSet {
   using NodePtr = std::shared_ptr<Node>;
   using ForwardNodePtrs = std::vector<NodePtr>;
 
-  static constexpr Level kMaxLevel = 4;
-  static constexpr Probability kProbability = 0.2;
+  static constexpr auto kMaxLevel = Level{4};
+  static constexpr auto kProbability = Probability{0.2};
 
-  static constexpr bool kSupportsMove = false;
+  static constexpr auto kSupportsMove = false;
 
  public:
   class Iterator {
