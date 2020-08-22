@@ -9,12 +9,12 @@
 template <typename T>
 using SL = skipper::SequentialSkipListSet<T>;
 
-TEST_CASE("Empty SSL has same Begin() and End() iterators") {
+TEST_CASE("Empty SL has same Begin() and End() iterators") {
   auto skip_list = SL<int>{};
   REQUIRE(skip_list.Begin() == skip_list.End());
 }
 
-TEST_CASE("Find() in empty SSL returns End() iterator") {
+TEST_CASE("Find() in empty SL returns End() iterator") {
   auto skip_list = SL<int>{};
   auto it = skip_list.Find(2);
   REQUIRE(it == skip_list.End());
@@ -53,7 +53,7 @@ TEST_CASE("Insert() maintains sortedness") {
   REQUIRE(got == expected);
 }
 
-TEST_CASE("Erase() does nothing if SSL is empty") {
+TEST_CASE("Erase() does nothing if SL is empty") {
   auto skip_list = SL<int>{};
   REQUIRE(skip_list.Erase(0) == 0);
 }
@@ -114,19 +114,19 @@ auto operator<(const MovableOnly& left, const MovableOnly& right) -> bool {
 }
 
 TEST_CASE("Insert() supports movable-only objects", "[!hide]") {
-  using SSLuptr = SL<std::unique_ptr<int>>;
+  using SLuptr = SL<std::unique_ptr<int>>;
 
-  if constexpr (SSLuptr::kSupportsMove) {
-    auto skip_list = SSLuptr{};
+  if constexpr (SLuptr::kSupportsMove) {
+    auto skip_list = SLuptr{};
     auto ptr = std::make_unique<int>(0);
     skip_list.Insert(std::move(ptr));
   }
 
-  using SSLmo = SL<MovableOnly>;
-  if constexpr (SSLmo::kSupportsMove) {
+  using SLmo = SL<MovableOnly>;
+  if constexpr (SLmo::kSupportsMove) {
     auto ss = std::stringstream{};
     {
-      auto skip_list = SSLmo{};
+      auto skip_list = SLmo{};
       auto only_movable = MovableOnly{&ss};
       skip_list.Insert(std::move(only_movable));
     }
