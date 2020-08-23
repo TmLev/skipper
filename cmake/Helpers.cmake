@@ -5,7 +5,6 @@ function (add_skipper_test NAME)
   endif ()
 
   add_executable(${NAME} test_catch2_main.cpp ${NAME}.cpp)
-
   target_link_libraries(${NAME} PRIVATE Catch2::Catch2)
   target_link_libraries(${NAME} PRIVATE skipper)
 endfunction ()
