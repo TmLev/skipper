@@ -8,6 +8,7 @@ project(
 
 include(cmake/Ccache.cmake)
 include(cmake/StaticAnalyzers.cmake)
+include(cmake/Helpers.cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 

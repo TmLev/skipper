@@ -1,3 +1,1 @@
-add_executable(benchmark_sequential_set benchmark_sequential_set.cpp)
-target_link_libraries(benchmark_sequential_set PRIVATE benchmark::benchmark_main)
-target_link_libraries(benchmark_sequential_set PRIVATE skipper)
+add_skipper_benchmark(benchmark_sequential_set)
