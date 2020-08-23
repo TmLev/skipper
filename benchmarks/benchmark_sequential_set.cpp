@@ -10,7 +10,7 @@
 template <typename T>
 using SL = skipper::SequentialSkipListSet<T>;
 
-static auto SetInsertComplexity(benchmark::State& state) -> void {
+static auto SetIntInsertComplexity(benchmark::State& state) -> void {
   auto n = state.range(0);
   auto random_numbers =
       GenerateNumbers(static_cast<std::size_t>(n), 0, 2'000'000);
@@ -25,7 +25,7 @@ static auto SetInsertComplexity(benchmark::State& state) -> void {
   state.SetComplexityN(n);
 }
 
-static auto SSLSInsertComplexity(benchmark::State& state) -> void {
+static auto SLIntInsertComplexity(benchmark::State& state) -> void {
   auto n = state.range(0);
   auto random_numbers =
       GenerateNumbers(static_cast<std::size_t>(n), 0, 2'000'000);
@@ -40,9 +40,9 @@ static auto SSLSInsertComplexity(benchmark::State& state) -> void {
   state.SetComplexityN(n);
 }
 
-BENCHMARK(SetInsertComplexity)
+BENCHMARK(SetIntInsertComplexity)
     ->DenseRange(1'000, 10'000, 1'000)
     ->Complexity(benchmark::oNLogN);
-BENCHMARK(SSLSInsertComplexity)
+BENCHMARK(SLIntInsertComplexity)
     ->DenseRange(1'000, 10'000, 1'000)
     ->Complexity(benchmark::oNLogN);
