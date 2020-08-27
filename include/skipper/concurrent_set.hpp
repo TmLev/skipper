@@ -11,9 +11,6 @@ namespace skipper {
 
 template <typename T>
 class ConcurrentSkipListSet {
- private:
-  struct Node;  // Forward declaration for `using` declarations
-
  public:
   using Level = int;
   using Probability = double;
@@ -36,6 +33,9 @@ class ConcurrentSkipListSet {
   auto Erase(const T& value) -> bool;
 
  private:
+  struct Node;  // Forward declaration for `using` declarations
+
+ private:
   using MaybeLevel = std::optional<Level>;
 
   using NodePtr = std::shared_ptr<Node>;
@@ -48,7 +48,7 @@ class ConcurrentSkipListSet {
   using GuardList = std::vector<Guard>;
 
  private:
-  struct FindResult;  // Forward declaration for `Find` method
+  struct FindResult;
 
  private:
   auto Find(const T& value) -> FindResult;
