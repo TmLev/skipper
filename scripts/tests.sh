@@ -8,6 +8,7 @@ run_tests() {
     exit 11
   }
   test_names=$(find . -maxdepth 1 -name "test_*" | sed "s|^\./||")
+  readarray -t test_names <<<"$test_names"
 
   for test in "${test_names[@]}"; do
     echo "Running \"$test\"..."

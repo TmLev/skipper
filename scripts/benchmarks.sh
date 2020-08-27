@@ -8,6 +8,7 @@ run_benchmarks() {
     exit 11
   }
   benchmark_names=$(find . -maxdepth 1 -name "benchmark_*")
+  readarray -t benchmark_names <<<"$benchmark_names"
 
   for benchmark in "${benchmark_names[@]}"; do
     chmod +x "$benchmark" && ./"$benchmark"
