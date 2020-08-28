@@ -20,6 +20,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Include skipper library
 add_library(skipper INTERFACE)
+add_library(skipper::skipper ALIAS skipper)
 target_include_directories(skipper INTERFACE include)
 include(cmake/CompilerWarnings.cmake)
 
