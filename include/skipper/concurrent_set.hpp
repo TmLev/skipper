@@ -15,8 +15,8 @@ class ConcurrentSkipListSet {
   using Level = int;
   using Probability = double;
 
-  static constexpr auto kMaxLevel = Level{8};
-  static constexpr auto kProbability = Probability{0.36};
+  static constexpr auto kMaxLevel = Level{4};
+  static constexpr auto kProbability = Probability{0.2};
 
  public:
   ConcurrentSkipListSet();
