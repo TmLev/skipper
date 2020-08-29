@@ -3,7 +3,7 @@
 #include <set>
 #include <vector>
 
-#include "../utils/random.hpp"
+#include "utils/random.hpp"
 
 #include "skipper/sequential_set.hpp"
 
