@@ -32,7 +32,7 @@ TEST_CASE("Insert() returns true for new elements and false otherwise",
   }
 }
 
-TEST_CASE("Contains() return true for existing elements and false otherwise",
+TEST_CASE("Contains() returns true for existing elements and false otherwise",
           "[Correctness]") {
   auto skip_list = SL<int>{};
 
@@ -134,7 +134,7 @@ TEST_CASE(
   }
 }
 
-TEST_CASE("Two threads insert simultaneously repeating numbers",
+TEST_CASE("Two threads insert repeating numbers simultaneously",
           "[Concurrency]") {
   auto skip_list = SL<int>{};
 
