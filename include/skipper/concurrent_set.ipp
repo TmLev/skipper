@@ -59,12 +59,12 @@ ConcurrentSkipListSet<T>::ConcurrentSkipListSet() {
 
 template <typename T>
 auto ConcurrentSkipListSet<T>::Contains(const T& value) -> bool {
-  if (auto [level, predecessors, successors] = Find(value); !level) {
+  if (auto [maybe_level, _, successors] = Find(value); !maybe_level) {
     return false;
   } else {
-    auto lvl = static_cast<std::size_t>(level.value());
-    auto is_linked = successors[lvl]->is_linked.load();
-    auto is_erased = successors[lvl]->is_erased.load();
+    auto level = static_cast<std::size_t>(maybe_level.value());
+    auto is_linked = successors[level]->is_linked.load();
+    auto is_erased = successors[level]->is_erased.load();
     return is_linked && !is_erased;
   }
 }
