@@ -5,9 +5,10 @@
 #include <utility>
 #include <vector>
 
-#include "../utils/random.hpp"
-
 #include "skipper/sequential_set.hpp"
+
+using Catch::Generators::chunk;
+using Catch::Generators::random;
 
 template <typename T>
 using SL = skipper::SequentialSkipListSet<T>;
@@ -61,7 +62,7 @@ TEST_CASE("Insert() returns same iterator for same element", "[Insert]") {
 TEST_CASE("Insert() maintains sortedness", "[Insert]") {
   auto skip_list = SL<int>{};
 
-  auto numbers = GenerateNumbers(100'000, -10'000, 10'000);
+  auto numbers = chunk(100'000, random(-10'000, 10'000)).get();
   for (auto n : numbers) {
     skip_list.Insert(n);
   }
@@ -90,7 +91,7 @@ TEST_CASE("Erase() erases same element only once", "[Erase]") {
 TEST_CASE("Erase() empties SL after removing all elements", "[Erase]") {
   auto skip_list = SL<int>{};
 
-  auto numbers = GenerateNumbers(100'000, -10'000, 10'000);
+  auto numbers = chunk(100'000, random(-10'000, 10'000)).get();
   numbers.push_back(numbers.front() - 1);  // In case all numbers are the same
   for (auto n : numbers) {
     skip_list.Insert(n);
