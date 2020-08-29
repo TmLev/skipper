@@ -1,1 +1,4 @@
 add_skipper_benchmark(benchmark_sequential_set)
+
+add_skipper_benchmark(benchmark_concurrent_set)
+target_link_libraries(benchmark_concurrent_set PRIVATE pthread)
