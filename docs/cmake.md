@@ -5,7 +5,7 @@
 > &mdash; <cite>[lt_algorithm_gt](https://www.reddit.com/r/cpp/comments/ihi37f/what_is_the_point_of_this_talk_just_making_fun_of/g34ex3x?utm_source=share&utm_medium=web2x&context=3)</cite>
 > (adapted from Bjarne Stroustrup)
 
-Note, that building tests and benchmarks for __Skipper__ is enabled by default 
+Note that building tests and benchmarks for __Skipper__ is enabled by default 
 (and for that, `Catch2` and `Google/Benchmark` are required).  
 In order to turn them off, set corresponding variables to `OFF`:
 ```cmake
