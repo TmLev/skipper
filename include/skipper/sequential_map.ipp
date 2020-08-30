@@ -86,6 +86,56 @@ auto SequentialSkipListMap<Key, Value>::Iterator::operator!=(
   return !(*this == other);  // NOLINT (simplification will lead to recursion)
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////
+//// SequentialSkipListMap: public interface
+////
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Find(const Key& key) const
+    -> SequentialSkipListMap::Iterator {
+  if (auto node = Traverse(key); node && node->key == key) {
+    return Iterator{node.get()};
+  }
+  return End();
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Begin() const
+    -> SequentialSkipListMap::Iterator {
+  return Iterator{head_->Next()};
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::End() const
+    -> SequentialSkipListMap::Iterator {
+  return Iterator{nullptr};
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////
+//// SequentialSkipListMap: private interface
+////
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Traverse(
+    const Key& key, SequentialSkipListMap::ForwardNodePtrs* update) const
+    -> SequentialSkipListMap::NodePtr {
+  auto node = head_;
+
+  for (auto level = level_; level >= 0; --level) {
+    auto i = static_cast<std::size_t>(level);
+    while (node->forward[i] && node->forward[i]->key < key) {
+      node = node->forward[i];
+    }
+    if (update) {
+      (*update)[i] = node;
+    }
+  }
+
+  return node->forward[0];
+}
+
 }  // namespace skipper
 
 #endif  // SKIPPER_SEQUENTIAL_MAP_IPP

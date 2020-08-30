@@ -18,6 +18,9 @@ class SequentialSkipListMap {
   using NodePtr = std::shared_ptr<Node>;
   using ForwardNodePtrs = std::vector<NodePtr>;
 
+  static constexpr auto kMaxLevel = Level{4};
+  static constexpr auto kProbability = Probability{0.2};
+
  public:
   class Iterator {
    public:
@@ -49,6 +52,14 @@ class SequentialSkipListMap {
   // Iteration interface
   auto Begin() const -> Iterator;
   auto End() const -> Iterator;
+
+ private:
+  auto Traverse(const Key& key, ForwardNodePtrs* update = nullptr) const
+      -> NodePtr;
+
+ private:
+  Level level_{0};
+  NodePtr head_{std::make_shared<Node>(Key{}, Value{}, kMaxLevel)};
 };
 
 }  // namespace skipper
