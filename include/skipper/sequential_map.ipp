@@ -27,7 +27,7 @@ template <typename Key, typename Value>
 SequentialSkipListMap<Key, Value>::Node::Node(Key k, Value v, Level level)
     : key(std::move(k)),
       value(std::move(v)),
-      forward(static_cast < std::size_t(level) + 1) {
+      forward(static_cast<std::size_t>(level) + 1) {
 }
 
 template <typename Key, typename Value>
