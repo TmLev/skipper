@@ -32,8 +32,58 @@ SequentialSkipListMap<Key, Value>::Node::Node(Key key, Value value, Level level)
 
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Node::Next() const
-    ->SequentialSkipListMap<Key, Value>::Node* {
+    -> SequentialSkipListMap<Key, Value>::Node* {
   return forward[0].get();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////
+//// SequentialSkipListMap::Iterator
+////
+
+template <typename Key, typename Value>
+SequentialSkipListMap<Key, Value>::Iterator::Iterator(
+    SequentialSkipListMap::Node* ptr)
+    : ptr_(ptr) {
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Iterator::operator*() const
+    -> const std::pair<Key, Value>& {
+  return std::pair<Key, Value>(ptr_->key, ptr_->value);
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Iterator::operator->() const
+    -> const std::pair<Key, Value>* {
+  return &std::pair<Key, Value>(ptr_->key, ptr_->value);
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Iterator::operator++(/* prefix */)
+    -> SequentialSkipListMap::Iterator& {
+  ptr_ = ptr_->Next();
+  return *this;
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Iterator::operator++(int /* postfix */)
+    -> SequentialSkipListMap::Iterator {
+  auto copy = *this;
+  ++(*this);
+  return copy;
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Iterator::operator==(
+    const SequentialSkipListMap::Iterator& other) const -> bool {
+  return ptr_ == other.ptr_;
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Iterator::operator!=(
+    const SequentialSkipListMap::Iterator& other) const -> bool {
+  return !(*this == other);  // NOLINT (simplification will lead to recursion)
 }
 
 }  // namespace skipper
