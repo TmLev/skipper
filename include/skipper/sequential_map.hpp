@@ -23,8 +23,8 @@ class SequentialSkipListMap {
    public:
     explicit Iterator(Node* ptr);
 
-    auto operator*() const -> const Value&;
-    auto operator->() const -> const Value*;
+    auto operator*() const -> const std::pair<Key, Value>&;
+    auto operator->() const -> const std::pair<Key, Value>*;
     auto operator++(/* prefix */) -> Iterator&;
     auto operator++(int /* postfix */) -> Iterator;
     auto operator==(const Iterator& other) const -> bool;
