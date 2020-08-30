@@ -47,7 +47,19 @@ class SequentialSkipListMap {
 Note that `Iterator` is of Forward category (see [here](https://en.cppreference.com/w/cpp/iterator/forward_iterator)):
 ```cpp
 template <typename T>
-class Iterator {
+class SequentialSkipListSet<T>::Iterator {
+ public:
+  // O(1) complexity
+  auto operator*() const -> const T&;
+  auto operator->() const -> const T*;
+  auto operator++(/* prefix */) -> Iterator&;
+  auto operator++(int /* postfix */) -> Iterator;
+  auto operator==(const Iterator& other) const -> bool;
+  auto operator!=(const Iterator& other) const -> bool;
+};
+
+template <typename Key, typename Value>
+class SequentialSkipListMap<Key, Value>::Iterator {
  public:
   // O(1) complexity
   auto operator*() const -> const std::pair<Key, Value>&;
