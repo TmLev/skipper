@@ -50,8 +50,8 @@ template <typename T>
 class Iterator {
  public:
   // O(1) complexity
-  auto operator*() const -> const T&;
-  auto operator->() const -> const T*;
+  auto operator*() const -> const std::pair<Key, Value>&;
+  auto operator->() const -> const std::pair<Key, Value>*;
   auto operator++(/* prefix */) -> Iterator&;
   auto operator++(int /* postfix */) -> Iterator;
   auto operator==(const Iterator& other) const -> bool;
