@@ -24,8 +24,8 @@ add_library(skipper::skipper ALIAS skipper)
 target_include_directories(skipper INTERFACE include)
 include(cmake/CompilerWarnings.cmake)
 
-set(SKIPPER_INCLUDE_CATCH2 "Include third-party library Catch2" ${SKIPPER_ENABLE_TESTS})
-set(SKIPPER_INCLUDE_BENCHMARK "Include third-party library Google Benchmark" ${SKIPPER_ENABLE_BENCHMARKS})
+set(SKIPPER_INCLUDE_CATCH2 ${SKIPPER_ENABLE_TESTS})
+set(SKIPPER_INCLUDE_BENCHMARK ${SKIPPER_ENABLE_BENCHMARKS})
 add_subdirectory(third-party)
 
 if (SKIPPER_ENABLE_TESTS)
