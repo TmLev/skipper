@@ -1,6 +1,11 @@
 #ifndef SKIPPER_SEQUENTIAL_MAP_IPP
 #define SKIPPER_SEQUENTIAL_MAP_IPP
 
+#include <algorithm>
+#include <iostream>
+#include <memory>
+#include <utility>
+
 #include "skipper//sequential_map.hpp"
 
 namespace skipper {
@@ -101,6 +106,33 @@ auto SequentialSkipListMap<Key, Value>::Find(const Key& key) const
 }
 
 template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Insert(const Key& key,
+                                               const Value& value)
+    -> std::pair<Iterator, bool> {
+  auto update = ForwardNodePtrs{kMaxLevel + 1};
+  auto node = Traverse(key, &update);
+
+  if (node && !(value < node->value)) {
+    return {Iterator{node.get()}, false};
+  }
+
+  auto node_level = GenerateRandomLevel();
+  if (node_level > level_) {
+    std::fill(std::begin(update) + level_ + 1,
+              std::begin(update) + node_level + 1, head_);
+    level_ = node_level;
+  }
+
+  auto new_node = std::make_shared<Node>(key, value, node_level);
+  for (auto level = Level{0}; level <= node_level; ++level) {
+    auto i = static_cast<std::size_t>(level);
+    new_node->forward[i] = std::exchange(update[i]->forward[i], new_node);
+  }
+
+  return {Iterator{new_node.get()}, true};
+}
+
+template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Begin() const
     -> SequentialSkipListMap::Iterator {
   return Iterator{head_->Next()};
@@ -134,6 +166,14 @@ auto SequentialSkipListMap<Key, Value>::Traverse(
   }
 
   return node->forward[0];
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::GenerateRandomLevel() const
+    -> SequentialSkipListMap::Level {
+  auto level = Level{0};
+  // TODO add some randomness
+  return level;
 }
 
 }  // namespace skipper
