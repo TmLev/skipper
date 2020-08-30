@@ -13,7 +13,7 @@ class SequentialSkipListMap {
 
  public:
   using Level = int;
-  using Probabilty = double;
+  using Probability = double;
 
   using NodePtr = std::shared_ptr<Node>;
   using ForwardNodePtrs = std::vector<NodePtr>;
