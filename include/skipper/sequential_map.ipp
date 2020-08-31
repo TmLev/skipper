@@ -172,8 +172,11 @@ template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::GenerateRandomLevel() const
     -> SequentialSkipListMap::Level {
   auto level = Level{0};
-  // TODO add some randomness
-  return level;
+  while (level < kMaxLevel &&
+         static_cast<Probability>(std::rand()) / RAND_MAX < kProbability) {
+    ++level;
+  }
+    return level;
 }
 
 }  // namespace skipper
