@@ -156,7 +156,7 @@ auto SequentialSkipListMap<Key, Value>::Erase(const Key& key) -> std::size_t {
   auto update = ForwardNodePtrs{kMaxLevel + 1};
   auto node = Traverse(key, &update);
 
-  if (!node || value < node->p.second) {
+  if (!node || key < node->p.first) {
     return 0;
   }
 
