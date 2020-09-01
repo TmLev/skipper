@@ -37,7 +37,7 @@ jobs:
          languages: ${{ matrix.language }}
 
     - name: Build CMake project
-    - run: |
+      run: |
         sudo apt-get -y install ccache clang-tidy-10
         scripts/build.sh
 
