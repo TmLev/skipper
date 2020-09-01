@@ -23,15 +23,13 @@ struct SequentialSkipListMap<Key, Value>::Node {
   auto Next() const -> Node*;
 
  public:
-  Key key;
-  Value value;
+  std::pair<Key, Value> p;
   ForwardNodePtrs forward;
 };
 
 template <typename Key, typename Value>
 SequentialSkipListMap<Key, Value>::Node::Node(Key k, Value v, Level level)
-    : key(std::move(k)),
-      value(std::move(v)),
+    : p(std::move(k), std::move(v)),
       forward(static_cast<std::size_t>(level) + 1) {
 }
 
@@ -55,13 +53,13 @@ SequentialSkipListMap<Key, Value>::Iterator::Iterator(
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Iterator::operator*() const
     -> const std::pair<Key, Value>& {
-  return std::pair<Key, Value>(ptr_->key, ptr_->value);
+  return p;
 }
 
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Iterator::operator->() const
     -> const std::pair<Key, Value>* {
-  return &std::pair<Key, Value>(ptr_->key, ptr_->value);
+  return &p;
 }
 
 template <typename Key, typename Value>
@@ -99,7 +97,7 @@ auto SequentialSkipListMap<Key, Value>::Iterator::operator!=(
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Find(const Key& key) const
     -> SequentialSkipListMap::Iterator {
-  if (auto node = Traverse(key); node && node->key == key) {
+  if (auto node = Traverse(key); node && node->p.first == key) {
     return Iterator{node.get()};
   }
   return End();
@@ -112,7 +110,7 @@ auto SequentialSkipListMap<Key, Value>::Insert(const Key& key,
   auto update = ForwardNodePtrs{kMaxLevel + 1};
   auto node = Traverse(key, &update);
 
-  if (node && !(value < node->value)) {
+  if (node && !(value < node->p.second)) {
     return {Iterator{node.get()}, false};
   }
 
@@ -157,7 +155,7 @@ auto SequentialSkipListMap<Key, Value>::Traverse(
 
   for (auto level = level_; level >= 0; --level) {
     auto i = static_cast<std::size_t>(level);
-    while (node->forward[i] && node->forward[i]->key < key) {
+    while (node->forward[i] && node->forward[i]->p.first < key) {
       node = node->forward[i];
     }
     if (update) {
@@ -176,7 +174,7 @@ auto SequentialSkipListMap<Key, Value>::GenerateRandomLevel() const
          static_cast<Probability>(std::rand()) / RAND_MAX < kProbability) {
     ++level;
   }
-    return level;
+  return level;
 }
 
 }  // namespace skipper
