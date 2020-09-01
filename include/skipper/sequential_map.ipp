@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 #include <utility>
 
 #include "skipper//sequential_map.hpp"
@@ -128,6 +129,26 @@ auto SequentialSkipListMap<Key, Value>::Insert(const Key& key,
   }
 
   return {Iterator{new_node.get()}, true};
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) -> Value& {
+  if (auto node = Find(key); node) {
+    return node->p.second;
+  } else {
+    auto it, _ = Insert(key, Value{});
+    return it->p.second;
+  }
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) const
+-> const Value& {
+  if (auto node = Find(key); node) {
+    return node->p.second;
+  } else {
+    throw std::invalid_argument;
+  }
 }
 
 template <typename Key, typename Value>
