@@ -112,7 +112,7 @@ auto SequentialSkipListMap<Key, Value>::Insert(const Key& key,
   auto update = ForwardNodePtrs{kMaxLevel + 1};
   auto node = Traverse(key, &update);
 
-  if (node && !(value < node->p.second)) {
+  if (node && !(key < node->p.first)) {
     return {Iterator{node.get()}, false};
   }
 
