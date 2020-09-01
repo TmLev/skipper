@@ -53,13 +53,13 @@ SequentialSkipListMap<Key, Value>::Iterator::Iterator(
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Iterator::operator*() const
     -> const std::pair<Key, Value>& {
-  return p;
+  return ptr_->p;
 }
 
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Iterator::operator->() const
     -> const std::pair<Key, Value>* {
-  return &p;
+  return &ptr_->p;
 }
 
 template <typename Key, typename Value>
