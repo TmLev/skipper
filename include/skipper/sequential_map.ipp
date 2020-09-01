@@ -152,6 +152,30 @@ auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) const
 }
 
 template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Erase(const Key& key) -> std::size_t {
+  auto update = ForwardNodePtrs{kMaxLevel + 1};
+  auto node = Traverse(key, &update);
+
+  if (!node || value < node->p.second) {
+    return 0;
+  }
+
+  for (auto level = Level{0}; level <= level_; ++level) {
+    auto i = static_cast<std::size_t>(level);
+    if (update[i]->forward[i] != node) {
+      break;
+    }
+    update[i]->forward[i] = node->forward[i];
+  }
+
+  while (level_ > 0 && !head_->forward[static_cast<std::size_t>(level_)]) {
+    --level_;
+  }
+
+  return 1;
+}
+
+template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Begin() const
     -> SequentialSkipListMap::Iterator {
   return Iterator{head_->Next()};
