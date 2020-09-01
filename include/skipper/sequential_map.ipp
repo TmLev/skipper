@@ -136,8 +136,8 @@ auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) -> Value& {
   if (auto node = Find(key); node) {
     return node->p.second;
   } else {
-    auto it, _ = Insert(key, Value{});
-    return it->p.second;
+    auto p = Insert(key, Value{});
+    return p.first->p.second;
   }
 }
 
@@ -147,7 +147,7 @@ auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) const
   if (auto node = Find(key); node) {
     return node->p.second;
   } else {
-    throw std::invalid_argument;
+    throw std::invalid_argument("Given key does not exist.");
   }
 }
 
