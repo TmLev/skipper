@@ -90,6 +90,15 @@ auto SequentialSkipListSet<T>::Iterator::operator!=(
 //// SequentialSkipListSet: public interface
 ////
 
+template <typename T>
+SequentialSkipListSet<T>::~SequentialSkipListSet() {
+  for (auto node = head_; node;) {
+    auto next = node->forward[0];
+    node->forward.clear();
+    node = next;
+  }
+}
+
 // Example: searching for 20 in SkipList illustrated below
 // [kMaxLevel = 4, kProbability = 0.5]
 //
