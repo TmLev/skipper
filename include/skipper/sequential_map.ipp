@@ -143,7 +143,7 @@ auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) -> Value& {
 
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) const
--> const Value& {
+    -> const Value& {
   if (auto node = Find(key); node) {
     return node->p.second;
   } else {
