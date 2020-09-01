@@ -231,8 +231,6 @@ auto ConcurrentSkipListSet<T>::Find(const T& value)
 template <typename T>
 auto ConcurrentSkipListSet<T>::GenerateRandomLevel()
     -> ConcurrentSkipListSet::Level {
-  // TODO(Lev): extract random engine to a template callable
-  //            with "toss a coin"-like interface and provide default one
   auto level = Level{0};
   while (level < kMaxLevel &&
          static_cast<Probability>(std::rand()) / RAND_MAX < kProbability) {
