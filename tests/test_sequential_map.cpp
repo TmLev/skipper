@@ -12,7 +12,7 @@
 template <typename Key, typename Value>
 using SM = skipper::SequentialSkipListMap<Key, Value>;
 
-TEST_CASE("Check Sequential SkipList Map coverage", "[Coverage]") {
+TEST_CASE("Check Sequential SkipList Map coverage", "[Functionality]") {
   auto skip_list = SM<int, int>{};
   auto [it1, success1] = skip_list.Insert(1, 1);
   auto [it2, success2] = skip_list.Insert(2, 2);
@@ -61,5 +61,23 @@ TEST_CASE("Check Sequential SkipList Map coverage", "[Coverage]") {
   SECTION("operator[]") {
     int value = skip_list[1];
     REQUIRE(value == it1->value);
+
+    auto f4 = skip_list.Find(4);
+    REQUIRE(f4 == skip_list.End());
+    skip_list[4] = 4;
+    f4 = skip_list.Find(4);
+    REQUIRE(f4 != skip_list.End());
+    REQUIRE(f4->value == 4);
+  }
+  SECTION("operator[] const") {
+    // TODO
+  }
+  SECTION("Erase()") {
+    auto ret0 = skip_list.Erase(0);
+    REQUIRE(ret0 == 0);
+
+    auto ret1 = skip_list.Erase(1);
+    REQUIRE(ret1 == 1);
+    REQUIRE(skip_list.Find(1) == skip_list.End());
   }
 }
