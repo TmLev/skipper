@@ -20,10 +20,14 @@ class SequentialSkipListMap {
   static constexpr auto kProbability = Probability{0.2};
 
  public:
-  struct Element {
+  class Element {
    public:
     Key key;
     Value value;
+
+   public:
+    Element(Key&& k, Value&& v) : key(std::move(k)), value(std::move(v)) {
+    }
   };
 
   class Iterator {

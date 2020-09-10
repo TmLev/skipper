@@ -18,20 +18,20 @@ TEST_CASE("Check Sequential SkipList Map coverage", "[Coverage]") {
   auto [it2, success2] = skip_list.Insert(2, 2);
 
   SECTION("Iterator::operator*") {
-    REQUIRE((*it1).first == 1);
+    REQUIRE((*it1).key == 1);
   }
   SECTION("Iterator::operator->") {
-    REQUIRE(it1->first == 1);
+    REQUIRE(it1->key == 1);
   }
   SECTION("Iterator::operator++") {
     auto copy = it1;
     ++copy;
-    REQUIRE(copy->first == it2->first);
+    REQUIRE(copy->key == it2->key);
   }
   SECTION("Iterator::operator++(int)") {
     auto copy = it1;
     copy++;
-    REQUIRE(copy->first == it2->first);
+    REQUIRE(copy->key == it2->key);
   }
   SECTION("Iterator::operator==") {
     auto copy = it1;
@@ -55,11 +55,11 @@ TEST_CASE("Check Sequential SkipList Map coverage", "[Coverage]") {
 
     auto [it5, success5] = skip_list.Insert(5, 5);
     REQUIRE(success5);
-    REQUIRE(it5->first == 5);
-    REQUIRE(it5->second == 5);
+    REQUIRE(it5->key == 5);
+    REQUIRE(it5->value == 5);
   }
   SECTION("operator[]") {
     int value = skip_list[1];
-    REQUIRE(value == it1->second);
+    REQUIRE(value == it1->value);
   }
 }
