@@ -24,13 +24,13 @@ struct SequentialSkipListMap<Key, Value>::Node {
   auto Next() const -> Node*;
 
  public:
-  std::pair<Key, Value> p;
+  Element element;
   ForwardNodePtrs forward;
 };
 
 template <typename Key, typename Value>
 SequentialSkipListMap<Key, Value>::Node::Node(Key k, Value v, Level level)
-    : p(std::move(k), std::move(v)),
+    : element(std::move(k), std::move(v)),
       forward(static_cast<std::size_t>(level) + 1) {
 }
 
@@ -52,15 +52,25 @@ SequentialSkipListMap<Key, Value>::Iterator::Iterator(
 }
 
 template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Iterator::operator*() -> Element& {
+  return ptr_->element;
+}
+
+template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Iterator::operator*() const
-    -> const std::pair<Key, Value>& {
-  return ptr_->p;
+    -> const Element& {
+  return ptr_->element;
+}
+
+template <typename Key, typename Value>
+auto SequentialSkipListMap<Key, Value>::Iterator::operator->() -> Element* {
+  return &ptr_->element;
 }
 
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Iterator::operator->() const
-    -> const std::pair<Key, Value>* {
-  return &ptr_->p;
+    -> const Element* {
+  return &ptr_->element;
 }
 
 template <typename Key, typename Value>
@@ -98,7 +108,7 @@ auto SequentialSkipListMap<Key, Value>::Iterator::operator!=(
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Find(const Key& key) const
     -> SequentialSkipListMap::Iterator {
-  if (auto node = Traverse(key); node && node->p.first == key) {
+  if (auto node = Traverse(key); node && node->element.key == key) {
     return Iterator{node.get()};
   } else {
     return End();
@@ -112,7 +122,7 @@ auto SequentialSkipListMap<Key, Value>::Insert(const Key& key,
   auto update = ForwardNodePtrs{kMaxLevel + 1};
   auto node = Traverse(key, &update);
 
-  if (node && !(key < node->p.first)) {
+  if (node && !(key < node->element.key)) {
     return {Iterator{node.get()}, false};
   }
 
@@ -135,10 +145,10 @@ auto SequentialSkipListMap<Key, Value>::Insert(const Key& key,
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) -> Value& {
   if (auto node = Find(key); node != End()) {
-    return node->second;
+    return node->element.value;
   } else {
     auto p = Insert(key, Value{});
-    return p.first->p.second;
+    return p.first->element.value;
   }
 }
 
@@ -146,7 +156,7 @@ template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) const
     -> const Value& {
   if (auto node = Find(key); node != End()) {
-    return node->p.second;
+    return node->element.value;
   } else {
     throw std::invalid_argument("Given key does not exist.");
   }
@@ -157,7 +167,7 @@ auto SequentialSkipListMap<Key, Value>::Erase(const Key& key) -> std::size_t {
   auto update = ForwardNodePtrs{kMaxLevel + 1};
   auto node = Traverse(key, &update);
 
-  if (!node || key < node->p.first) {
+  if (!node || key < node->element.key) {
     return 0;
   }
 
@@ -201,7 +211,7 @@ auto SequentialSkipListMap<Key, Value>::Traverse(
 
   for (auto level = level_; level >= 0; --level) {
     auto i = static_cast<std::size_t>(level);
-    while (node->forward[i] && node->forward[i]->p.first < key) {
+    while (node->forward[i] && node->forward[i]->element.key < key) {
       node = node->forward[i];
     }
     if (update) {

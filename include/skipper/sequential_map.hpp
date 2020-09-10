@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <tuple>
 
 namespace skipper {
 
@@ -15,19 +16,24 @@ class SequentialSkipListMap {
   using Level = int;
   using Probability = double;
 
-  using NodePtr = std::shared_ptr<Node>;
-  using ForwardNodePtrs = std::vector<NodePtr>;
-
   static constexpr auto kMaxLevel = Level{4};
   static constexpr auto kProbability = Probability{0.2};
 
  public:
+  struct Element {
+   public:
+    Key key;
+    Value value;
+  };
+
   class Iterator {
    public:
     explicit Iterator(Node* ptr);
 
-    auto operator*() const -> const std::pair<Key, Value>&;
-    auto operator->() const -> const std::pair<Key, Value>*;
+    auto operator*() -> Element&;
+    auto operator*() const -> const Element&;
+    auto operator->() -> Element*;
+    auto operator->() const -> const Element*;
     auto operator++(/* prefix */) -> Iterator&;
     auto operator++(int /* postfix */) -> Iterator;
     auto operator==(const Iterator& other) const -> bool;
@@ -52,6 +58,10 @@ class SequentialSkipListMap {
   // Iteration interface
   auto Begin() const -> Iterator;
   auto End() const -> Iterator;
+
+ private:
+  using NodePtr = std::shared_ptr<Node>;
+  using ForwardNodePtrs = std::vector<NodePtr>;
 
  private:
   auto Traverse(const Key& key, ForwardNodePtrs* update = nullptr) const
