@@ -50,6 +50,13 @@ class SequentialSkipListMap {
  public:
   SequentialSkipListMap() = default;
 
+  SequentialSkipListMap(SequentialSkipListMap&& other) = delete;
+  SequentialSkipListMap(const SequentialSkipListMap& other) = delete;
+  SequentialSkipListMap& operator=(SequentialSkipListMap&& other) = delete;
+  SequentialSkipListMap& operator=(const SequentialSkipListMap& other) = delete;
+
+  ~SequentialSkipListMap() = default;
+
   // STL map-like interface
   auto Find(const Key& key) const -> Iterator;
 
