@@ -3,7 +3,7 @@
 #include <map>
 #include <vector>
 
-#include "../utils/random.hpp"
+#include "utils/random.hpp"
 
 #include "skipper/sequential_map.hpp"
 
