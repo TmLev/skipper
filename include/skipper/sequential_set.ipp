@@ -90,6 +90,15 @@ auto SequentialSkipListSet<T>::Iterator::operator!=(
 //// SequentialSkipListSet: public interface
 ////
 
+template <typename T>
+SequentialSkipListSet<T>::~SequentialSkipListSet() {
+  for (auto node = head_; node;) {
+    auto next = node->forward[0];
+    node->forward.clear();
+    node = next;
+  }
+}
+
 // Example: searching for 20 in SkipList illustrated below
 // [kMaxLevel = 4, kProbability = 0.5]
 //
@@ -269,8 +278,6 @@ auto SequentialSkipListSet<T>::Traverse(
 template <typename T>
 auto SequentialSkipListSet<T>::GenerateRandomLevel() const
     -> SequentialSkipListSet::Level {
-  // TODO(Lev): extract random engine to a template callable
-  //            with "toss a coin"-like interface and provide default one
   auto level = Level{0};
   while (level < kMaxLevel &&
          static_cast<Probability>(std::rand()) / RAND_MAX < kProbability) {
