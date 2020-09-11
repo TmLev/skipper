@@ -41,8 +41,8 @@ static auto SLIntInsertComplexity(benchmark::State& state) -> void {
 }
 
 BENCHMARK(SetIntInsertComplexity)
-->DenseRange(1'000, 10'000, 1'000)
+    ->DenseRange(1'000, 10'000, 1'000)
     ->Complexity(benchmark::oNLogN);
 BENCHMARK(SLIntInsertComplexity)
-->DenseRange(1'000, 10'000, 1'000)
+    ->DenseRange(1'000, 10'000, 1'000)
     ->Complexity(benchmark::oNLogN);
