@@ -49,7 +49,7 @@ class SequentialSkipListSet {
   SequentialSkipListSet& operator=(SequentialSkipListSet&& other) = delete;
   SequentialSkipListSet& operator=(const SequentialSkipListSet& other) = delete;
 
-  ~SequentialSkipListSet() = default;
+  ~SequentialSkipListSet();
 
   // STL set-like interface
   auto Find(const T& value) const -> Iterator;

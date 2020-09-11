@@ -6,7 +6,7 @@ endif ()
 
 find_program(CCACHE_FOUND "ccache")
 if (NOT CCACHE_FOUND)
-  message(SEND_ERROR "ccache is not found")
+  message(WARNING "ccache is not found")
   return()
 endif ()
 
