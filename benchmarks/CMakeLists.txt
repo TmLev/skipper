@@ -1,1 +1,2 @@
 add_skipper_benchmark(benchmark_sequential_set)
+add_skipper_benchmark(benchmark_sequential_map)
