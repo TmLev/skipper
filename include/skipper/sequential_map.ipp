@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <utility>
 
-#include "skipper//sequential_map.hpp"
+#include "skipper/sequential_map.hpp"
 
 namespace skipper {
 
