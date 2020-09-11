@@ -10,7 +10,7 @@
 template <typename Key, typename Value>
 using SM = skipper::SequentialSkipListMap<Key, Value>;
 
-static auto SetIntInsertComplexity(benchmark::State& state) -> void {
+static auto MapIntInsertComplexity(benchmark::State& state) -> void {
   auto n = state.range(0);
   auto random_numbers =
       GenerateNumbers(static_cast<std::size_t>(n), 0, 2'000'000);
@@ -25,7 +25,7 @@ static auto SetIntInsertComplexity(benchmark::State& state) -> void {
   state.SetComplexityN(n);
 }
 
-static auto SLIntInsertComplexity(benchmark::State& state) -> void {
+static auto SMIntInsertComplexity(benchmark::State& state) -> void {
   auto n = state.range(0);
   auto random_numbers =
       GenerateNumbers(static_cast<std::size_t>(n), 0, 2'000'000);
@@ -40,9 +40,9 @@ static auto SLIntInsertComplexity(benchmark::State& state) -> void {
   state.SetComplexityN(n);
 }
 
-BENCHMARK(SetIntInsertComplexity)
+BENCHMARK(MapIntInsertComplexity)
     ->DenseRange(1'000, 10'000, 1'000)
     ->Complexity(benchmark::oNLogN);
-BENCHMARK(SLIntInsertComplexity)
+BENCHMARK(SMIntInsertComplexity)
     ->DenseRange(1'000, 10'000, 1'000)
     ->Complexity(benchmark::oNLogN);
