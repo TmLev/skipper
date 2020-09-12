@@ -106,6 +106,15 @@ auto SequentialSkipListMap<Key, Value>::Iterator::operator!=(
 ////
 
 template <typename Key, typename Value>
+SequentialSkipListMap<Key, Value>::~SequentialSkipListMap() {
+  for (auto node = head_; node;) {
+    auto next = node->forward[0];
+    node->forward.clear();
+    node = next;
+  }
+}
+
+template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Find(const Key& key) const
     -> SequentialSkipListMap::Iterator {
   if (auto node = Traverse(key); node && node->element.key == key) {
