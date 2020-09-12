@@ -128,7 +128,7 @@ SequentialSkipListSet<T>::~SequentialSkipListSet() {
 template <typename T>
 auto SequentialSkipListSet<T>::Find(const T& value) const
     -> SequentialSkipListSet::Iterator {
-  if (auto node = Traverse(value); node && node->value == value) {
+  if (auto node = Traverse(value); node && !(node->value < value)) {
     return Iterator{node.get()};
   } else {
     return End();
