@@ -40,39 +40,43 @@ TEST_CASE("Check Sequential SkipList Map coverage", "[Functionality]") {
     REQUIRE(it1 != it2);
   }
 
-  SECTION("Find()") {
-    auto f1 = skip_list.Find(1);
-    REQUIRE(f1 == it1);
-
-    auto f3 = skip_list.Find(3);
-    REQUIRE(f3 != it1);
+  SECTION("Find() works correctly with existent values") {
+    auto f = skip_list.Find(1);
+    REQUIRE(f == it1);
   }
-  SECTION("Insert()") {
+  SECTION("Find() works correctly with non-existent values") {
+    auto f = skip_list.Find(3);
+    REQUIRE(f != it1);
+  }
+  SECTION("Insert() works correctly with existent values") {
     auto [it, success] = skip_list.Insert(1, 1);
     REQUIRE(!success);
-
-    auto [it5, success5] = skip_list.Insert(5, 5);
-    REQUIRE(success5);
-    REQUIRE(it5->key == 5);
-    REQUIRE(it5->value == 5);
   }
-  SECTION("operator[]") {
+  SECTION("Insert() works correctly with non-existent values") {
+    auto [it, success] = skip_list.Insert(5, 5);
+    REQUIRE(success);
+    REQUIRE(it->key == 5);
+    REQUIRE(it->value == 5);
+  }
+  SECTION("operator[] access works correctly") {
     int value = skip_list[1];
     REQUIRE(value == it1->value);
-
-    auto f4 = skip_list.Find(4);
-    REQUIRE(f4 == skip_list.End());
-    skip_list[4] = 4;
-    f4 = skip_list.Find(4);
-    REQUIRE(f4 != skip_list.End());
-    REQUIRE(f4->value == 4);
   }
-  SECTION("Erase()") {
-    auto ret0 = skip_list.Erase(0);
-    REQUIRE(ret0 == 0);
-
-    auto ret1 = skip_list.Erase(1);
-    REQUIRE(ret1 == 1);
+  SECTION("operator[] insert work correctly") {
+    auto f = skip_list.Find(4);
+    REQUIRE(f == skip_list.End());
+    skip_list[4] = 4;
+    f = skip_list.Find(4);
+    REQUIRE(f != skip_list.End());
+    REQUIRE(f->value == 4);
+  }
+  SECTION("Erase() works correctly with non-existent values") {
+    auto ret = skip_list.Erase(0);
+    REQUIRE(ret == 0);
+  }
+  SECTION("Erase() works correctly with existent values") {
+    auto ret = skip_list.Erase(1);
+    REQUIRE(ret == 1);
     REQUIRE(skip_list.Find(1) == skip_list.End());
   }
 }
