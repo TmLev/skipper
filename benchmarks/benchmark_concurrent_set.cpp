@@ -2,14 +2,13 @@
 
 #include <memory>
 
-#include "utils/guarded.hpp"
 #include "utils/random.hpp"
 
 #include "skipper/concurrent_set.hpp"
-#include "skipper/sequential_set.hpp"
+#include "skipper/guarded_set.hpp"
 
 template <typename T>
-using GSL = Guarded<skipper::SequentialSkipListSet<T>>;
+using GSL = skipper::GuardedSkipListSet<T>;
 
 template <typename T>
 using SL = skipper::ConcurrentSkipListSet<T>;
