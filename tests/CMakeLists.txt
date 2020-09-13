@@ -1,3 +1,5 @@
 add_skipper_test(test_sequential_set)
+add_skipper_test(test_sequential_map)
+
 add_skipper_test(test_concurrent_set)
 target_link_libraries(test_concurrent_set PRIVATE pthread)
