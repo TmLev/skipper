@@ -8,14 +8,14 @@ fi
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 mount_path=$DIR/../
 echo "Mounting from $mount_path"
-sed "s/<mount_path>/${mount_path//\//\\/}/" docker-compose.yaml >docker-compose.yml
+sed "s/<mount_path>/${mount_path//\//\\/}/" "$DIR/docker-compose.yaml" >"$DIR/docker-compose.yml"
 
 CONT_UID=$(id -u)
 CONT_GID=$(id -g)
 export CONT_UID
 export CONT_GID
 
-docker-compose -f docker-compose.yml up -d --build --force-recreate
+docker-compose -f "$DIR/docker-compose.yml" up -d --build --force-recreate
 docker exec -it skipper-image groupadd -g "$(id -g)" grp
 docker exec -it skipper-image useradd -u "$(id -u)" -g "$(id -g)" -m "$USER"
 docker exec -it skipper-image chown -R "$USER" /skipper

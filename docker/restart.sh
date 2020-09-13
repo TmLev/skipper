@@ -5,4 +5,6 @@ if [[ $EUID == 0 ]]; then
   exit 1
 fi
 
-docker-compose -f docker-compose.yml up -d
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+docker-compose -f "$DIR/docker-compose.yml" up -d
