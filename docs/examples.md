@@ -61,8 +61,10 @@ template <typename Key, typename Value>
 class SequentialSkipListMap<Key, Value>::Iterator {
  public:
   // O(1) complexity
-  auto operator*() const -> const std::pair<Key, Value>&;
-  auto operator->() const -> const std::pair<Key, Value>*;
+  auto operator*() -> Element&;
+  auto operator*() const -> const Element&;
+  auto operator->() -> Element*;
+  auto operator->() const -> const Element*;
   auto operator++(/* prefix */) -> Iterator&;
   auto operator++(int /* postfix */) -> Iterator;
   auto operator==(const Iterator& other) const -> bool;
