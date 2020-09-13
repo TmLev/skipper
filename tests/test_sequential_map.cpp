@@ -10,7 +10,7 @@
 template <typename Key, typename Value>
 using SM = skipper::SequentialSkipListMap<Key, Value>;
 
-TEST_CASE("Check Sequential SkipList Map coverage", "[Functionality]") {
+TEST_CASE("Check Sequential SkipList Map functionality", "[Functionality]") {
   auto skip_list = SM<int, int>{};
   auto [it1, success1] = skip_list.Insert(1, 1);
   auto [it2, success2] = skip_list.Insert(2, 2);
