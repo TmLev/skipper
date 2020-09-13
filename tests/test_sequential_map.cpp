@@ -67,9 +67,6 @@ TEST_CASE("Check Sequential SkipList Map coverage", "[Functionality]") {
     REQUIRE(f4 != skip_list.End());
     REQUIRE(f4->value == 4);
   }
-  SECTION("operator[] const") {
-    // TODO
-  }
   SECTION("Erase()") {
     auto ret0 = skip_list.Erase(0);
     REQUIRE(ret0 == 0);

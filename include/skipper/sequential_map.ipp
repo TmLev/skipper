@@ -162,16 +162,6 @@ auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) -> Value& {
 }
 
 template <typename Key, typename Value>
-auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) const
-    -> const Value& {
-  if (auto node = Find(key); node != End()) {
-    return node->value;
-  } else {
-    throw std::invalid_argument("Given key does not exist.");
-  }
-}
-
-template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Erase(const Key& key) -> std::size_t {
   auto update = ForwardNodePtrs{kMaxLevel + 1};
   auto node = Traverse(key, &update);
