@@ -33,7 +33,6 @@ class SequentialSkipListMap {
   auto Find(const Key& key) const -> Iterator;
   auto Insert(const Key& key, const Value& value) -> std::pair<Iterator, bool>;
   auto operator[](const Key& key) -> Value&;
-  auto operator[](const Key& key) const -> const Value&;
   auto Erase(const Key& key) -> std::size_t;
 
   // O(1) complexity
