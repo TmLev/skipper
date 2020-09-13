@@ -24,7 +24,7 @@ struct SequentialSkipListSet<T>::Node {
 
  public:
   T value;
-  ForwardNodePtrs forward;
+  NodePtrList forward;
 };
 
 template <typename T>
@@ -189,7 +189,7 @@ auto SequentialSkipListSet<T>::Find(const T& value) const
 template <typename T>
 auto SequentialSkipListSet<T>::Insert(const T& value)
     -> std::pair<Iterator, bool> {
-  auto update = ForwardNodePtrs{kMaxLevel + 1};
+  auto update = NodePtrList{kMaxLevel + 1};
   auto node = Traverse(value, &update);
 
   // Test for equality without using operator==
@@ -216,7 +216,7 @@ auto SequentialSkipListSet<T>::Insert(const T& value)
 
 template <typename T>
 auto SequentialSkipListSet<T>::Erase(const T& value) -> std::size_t {
-  auto update = ForwardNodePtrs{kMaxLevel + 1};
+  auto update = NodePtrList{kMaxLevel + 1};
   auto node = Traverse(value, &update);
 
   // Test for inequality without using operator==
@@ -258,7 +258,7 @@ auto SequentialSkipListSet<T>::End() const -> SequentialSkipListSet::Iterator {
 
 template <typename T>
 auto SequentialSkipListSet<T>::Traverse(
-    const T& value, SequentialSkipListSet::ForwardNodePtrs* update) const
+    const T& value, SequentialSkipListSet::NodePtrList* update) const
     -> SequentialSkipListSet::NodePtr {
   auto node = head_;
 

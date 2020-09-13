@@ -17,7 +17,7 @@ class SequentialSkipListSet {
   using Probability = double;
 
   using NodePtr = std::shared_ptr<Node>;
-  using ForwardNodePtrs = std::vector<NodePtr>;
+  using NodePtrList = std::vector<NodePtr>;
 
   static constexpr auto kMaxLevel = Level{4};
   static constexpr auto kProbability = Probability{0.2};
@@ -61,7 +61,7 @@ class SequentialSkipListSet {
   auto End() const -> Iterator;
 
  private:
-  auto Traverse(const T& value, ForwardNodePtrs* update = nullptr) const
+  auto Traverse(const T& value, NodePtrList* update = nullptr) const
       -> NodePtr;
 
   auto GenerateRandomLevel() const -> Level;

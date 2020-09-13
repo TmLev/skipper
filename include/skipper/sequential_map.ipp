@@ -25,7 +25,7 @@ struct SequentialSkipListMap<Key, Value>::Node {
 
  public:
   Element element;
-  ForwardNodePtrs forward;
+  NodePtrList forward;
 };
 
 template <typename Key, typename Value>
@@ -128,7 +128,7 @@ template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Insert(const Key& key,
                                                const Value& value)
     -> std::pair<Iterator, bool> {
-  auto update = ForwardNodePtrs{kMaxLevel + 1};
+  auto update = NodePtrList{kMaxLevel + 1};
   auto node = Traverse(key, &update);
 
   if (node && !(key < node->element.key)) {
@@ -163,7 +163,7 @@ auto SequentialSkipListMap<Key, Value>::operator[](const Key& key) -> Value& {
 
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Erase(const Key& key) -> std::size_t {
-  auto update = ForwardNodePtrs{kMaxLevel + 1};
+  auto update = NodePtrList{kMaxLevel + 1};
   auto node = Traverse(key, &update);
 
   if (!node || key < node->element.key) {
@@ -204,7 +204,7 @@ auto SequentialSkipListMap<Key, Value>::End() const
 
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Traverse(
-    const Key& key, SequentialSkipListMap::ForwardNodePtrs* update) const
+    const Key& key, SequentialSkipListMap::NodePtrList* update) const
     -> SequentialSkipListMap::NodePtr {
   auto node = head_;
 

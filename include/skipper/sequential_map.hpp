@@ -67,10 +67,10 @@ class SequentialSkipListMap {
 
  private:
   using NodePtr = std::shared_ptr<Node>;
-  using ForwardNodePtrs = std::vector<NodePtr>;
+  using NodePtrList = std::vector<NodePtr>;
 
  private:
-  auto Traverse(const Key& key, ForwardNodePtrs* update = nullptr) const
+  auto Traverse(const Key& key, NodePtrList* update = nullptr) const
       -> NodePtr;
 
   auto GenerateRandomLevel() const -> Level;
