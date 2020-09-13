@@ -61,8 +61,7 @@ class SequentialSkipListSet {
   auto End() const -> Iterator;
 
  private:
-  auto Traverse(const T& value, NodePtrList* update = nullptr) const
-      -> NodePtr;
+  auto Traverse(const T& value, NodePtrList* update = nullptr) const -> NodePtr;
 
   auto GenerateRandomLevel() const -> Level;
 
