@@ -24,10 +24,6 @@ class SequentialSkipListMap {
    public:
     Key key;
     Value value;
-
-   public:
-    Element(Key&& k, Value&& v) : key(std::move(k)), value(std::move(v)) {
-    }
   };
 
   class Iterator {
