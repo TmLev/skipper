@@ -35,11 +35,19 @@ class ConcurrentSkipListMap {
   struct Node;  // Forward declaration for `using` declarations
 
  private:
+  using MaybeLevel = std::optional<Level>;
+
   using NodePtr = std::shared_ptr<Node>;
   using NodePtrList = std::vector<NodePtr>;
 
   using Flag = std::atomic<bool>;
   using Lock = std::recursive_mutex;
+
+ private:
+  struct FindResult;
+
+ private:
+  auto Find(const Key& key) -> FindResult;
 
  private:
   NodePtr head_{std::make_shared<Node>(Key{}, Value{}, kMaxLevel)};

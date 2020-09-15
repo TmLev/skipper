@@ -37,6 +37,14 @@ ConcurrentSkipListMap<Key, Value>::Node::Node(Key k, Value val, Level lvl)
       forward(static_cast<std::size_t>(lvl) + 1) {
 }
 
+template <typename Key, typename Value>
+struct ConcurrentSkipListMap<Key, Value>::FindResult {
+ public:
+  MaybeLevel level{std::nullopt};
+  NodePtrList predecessors{static_cast<std::size_t>(kMaxLevel) + 1};
+  NodePtrList successors{static_cast<std::size_t>(kMaxLevel) + 1};
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 ////
 //// ConcurrentSkipListSet: public interface
@@ -49,7 +57,14 @@ ConcurrentSkipListMap<Key, Value>::ConcurrentSkipListMap() {
 
 template <typename Key, typename Value>
 auto ConcurrentSkipListMap<Key, Value>::Contains(const Key& key) -> bool {
-  return false;
+  if (auto [maybe_level, _, successors] = Find(key); !maybe_level) {
+    return false;
+  } else {
+    auto level = static_cast<std::size_t>(maybe_level.value());
+    auto is_linked = successors[level]->is_linked.load();
+    auto is_erased = successors[level]->is_erased.load();
+    return is_linked && !is_erased;
+  }
 }
 
 template <typename Key, typename Value>
@@ -61,6 +76,37 @@ auto ConcurrentSkipListMap<Key, Value>::Insert(const Key& key,
 template <typename Key, typename Value>
 auto ConcurrentSkipListMap<Key, Value>::Erase(const Key& key) -> bool {
   return false;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////
+//// ConcurrentSkipListSet: private interface
+////
+
+template <typename Key, typename Value>
+auto ConcurrentSkipListMap<Key, Value>::Find(const Key& key)
+-> ConcurrentSkipListMap::FindResult {
+  auto result = FindResult{};
+  auto pred = head_;
+
+  for (auto level = kMaxLevel; level >= 0; --level) {
+    auto i = static_cast<std::size_t>(level);
+    auto curr = pred->forward[i];
+
+    while (curr != tail_ && curr->key < key) {
+      pred = curr;
+      curr = pred->forward[i];
+    }
+
+    if (!result.level && curr != tail_ && curr->key == key) {
+      result.level.emplace(level);
+    }
+
+    result.predecessors[i] = pred;
+    result.successors[i] = curr;
+  }
+
+  return result;
 }
 
 }  // namespace skipper
