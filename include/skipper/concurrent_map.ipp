@@ -70,7 +70,54 @@ auto ConcurrentSkipListMap<Key, Value>::Contains(const Key& key) -> bool {
 template <typename Key, typename Value>
 auto ConcurrentSkipListMap<Key, Value>::Insert(const Key& key,
                                                const Value& value) -> bool {
-  return false;
+  auto node_level = GenerateRandomLevel();
+
+  while (true) {
+    auto [maybe_level, predecessors, successors] = Find(key);
+    if (maybe_level) {
+      auto level = static_cast<std::size_t>(maybe_level.value());
+      auto node = successors[level];
+
+      if (!node->is_erased.load()) {
+        while (!node->is_linked.load()) {
+        }
+
+        return false;
+      }
+
+      continue;
+    }
+
+    auto guards = GuardList{};
+    auto valid = true;
+
+    for (auto level = 0; valid && level <= node_level; ++level) {
+      auto i = static_cast<std::size_t>(level);
+      auto pred = predecessors[i];
+      auto succ = successors[i];
+      guards.emplace_back(pred->lock);
+
+      auto pred_is_erased = pred->is_erased.load();
+      auto succ_is_erased = succ->is_erased.load();
+      auto linked = pred->forward[i] == succ;
+      valid = !pred_is_erased && !succ_is_erased && linked;
+    }
+
+    if (!valid) {
+      continue;
+    }
+
+    auto node = std::make_shared<Node>(key, value, node_level);
+    for (auto level = 0; level <= node_level; ++level) {
+      auto i = static_cast<std::size_t>(level);
+      node->forward[i] = successors[i];
+      predecessors[i]->forward[i] = node;
+    }
+
+    node->is_linked.store(true);
+
+    return true;
+  }
 }
 
 template <typename Key, typename Value>
@@ -85,7 +132,7 @@ auto ConcurrentSkipListMap<Key, Value>::Erase(const Key& key) -> bool {
 
 template <typename Key, typename Value>
 auto ConcurrentSkipListMap<Key, Value>::Find(const Key& key)
--> ConcurrentSkipListMap::FindResult {
+    -> ConcurrentSkipListMap::FindResult {
   auto result = FindResult{};
   auto pred = head_;
 
@@ -107,6 +154,17 @@ auto ConcurrentSkipListMap<Key, Value>::Find(const Key& key)
   }
 
   return result;
+}
+
+template <typename Key, typename Value>
+auto ConcurrentSkipListMap<Key, Value>::GenerateRandomLevel()
+    -> ConcurrentSkipListMap::Level {
+  auto level = Level{0};
+  while (level < kMaxLevel &&
+         static_cast<Probability>(std::rand()) / RAND_MAX < kProbability) {
+    ++level;
+  }
+  return level;
 }
 
 }  // namespace skipper
