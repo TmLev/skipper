@@ -42,12 +42,15 @@ class ConcurrentSkipListMap {
 
   using Flag = std::atomic<bool>;
   using Lock = std::recursive_mutex;
+  using Guard = std::unique_lock<Lock>;
+  using GuardList = std::vector<Guard>;
 
  private:
   struct FindResult;
 
  private:
   auto Find(const Key& key) -> FindResult;
+  auto GenerateRandomLevel() -> Level;
 
  private:
   NodePtr head_{std::make_shared<Node>(Key{}, Value{}, kMaxLevel)};
