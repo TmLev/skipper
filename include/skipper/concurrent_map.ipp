@@ -122,7 +122,57 @@ auto ConcurrentSkipListMap<Key, Value>::Insert(const Key& key,
 
 template <typename Key, typename Value>
 auto ConcurrentSkipListMap<Key, Value>::Erase(const Key& key) -> bool {
-  return false;
+  auto candidate = NodePtr{};
+  auto maybe_node_level = MaybeLevel{};
+  auto maybe_guard = MaybeGuard{};
+
+  while (true) {
+    auto [maybe_level, predecessors, successors] = Find(key);
+    if (maybe_level) {
+      auto level = static_cast<std::size_t>(maybe_level.value());
+      candidate = successors[level];
+    }
+
+    auto has_candidate = maybe_level && candidate->is_linked.load() &&
+                         candidate->level == maybe_level.value() &&
+                         !candidate->is_erased.load();
+
+    if (!has_candidate) {
+      return false;
+    }
+
+    if (!maybe_guard) {
+      maybe_node_level.emplace(candidate->level);
+      maybe_guard.emplace(candidate->lock);
+
+      if (candidate->is_erased.load()) {
+        return false;
+      }
+
+      candidate->is_erased.store(true);
+    }
+
+    auto guards = GuardList{};
+    auto valid = maybe_node_level.has_value();
+
+    for (auto level = 0; valid && level <= maybe_node_level.value(); ++level) {
+      auto i = static_cast<std::size_t>(level);
+      auto pred = predecessors[i];
+      guards.emplace_back(pred->lock);
+      valid = !pred->is_erased.load() && pred->forward[i] == candidate;
+    }
+
+    if (!valid) {
+      continue;
+    }
+
+    for (auto level = maybe_node_level.value(); level >= 0; --level) {
+      auto i = static_cast<std::size_t>(level);
+      predecessors[i]->forward[i] = candidate->forward[i];
+    }
+
+    return true;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

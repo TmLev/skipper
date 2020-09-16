@@ -43,6 +43,7 @@ class ConcurrentSkipListMap {
   using Flag = std::atomic<bool>;
   using Lock = std::recursive_mutex;
   using Guard = std::unique_lock<Lock>;
+  using MaybeGuard = std::optional<Guard>;
   using GuardList = std::vector<Guard>;
 
  private:
