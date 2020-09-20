@@ -28,14 +28,12 @@ static auto ConcurrentManyContainsQueries(benchmark::State& state) -> void {
   if (state.thread_index == 0) {
     concurrent = std::make_unique<SL<int, int>>();
     for (auto i = 0; i < kThousand * kThousand; ++i) {
-      auto num = dis(gen);
-      concurrent->Insert(num, num);
+      concurrent->Insert(dis(gen), dis(gen));
     }
   }
 
   for (auto _ : state) {
-    auto num = dis(gen);
-    concurrent->Contains(num);
+    concurrent->Contains(dis(gen));
   }
 
   if (state.thread_index == 0) {
@@ -54,17 +52,15 @@ static auto ConcurrentInitialOneInsertManyContainsQueries(
   if (state.thread_index == 0) {
     concurrent = std::make_unique<SL<int, int>>();
     for (auto i = 0; i < kThousand * kThousand; ++i) {
-      auto num = dis(gen);
-      concurrent->Insert(num, num);
+      concurrent->Insert(dis(gen), dis(gen));
     }
   }
 
   for (auto _ : state) {
-    auto num = dis(gen);
     if (state.thread_index == 0) {
-      concurrent->Insert(num, num);
+      concurrent->Insert(dis(gen), dis(gen));
     } else {
-      concurrent->Contains(num);
+      concurrent->Contains(dis(gen));
     }
   }
 
@@ -86,11 +82,10 @@ static auto ConcurrentOneInsertManyContainsQueries(benchmark::State& state)
   }
 
   for (auto _ : state) {
-    auto num = dis(gen);
     if (state.thread_index == 0) {
-      concurrent->Insert(num, num);
+      concurrent->Insert(dis(gen), dis(gen));
     } else {
-      concurrent->Contains(num);
+      concurrent->Contains(dis(gen));
     }
   }
 
@@ -111,16 +106,14 @@ static auto ConcurrentOneInsertOneEraseManyContainsQueries(
   if (state.thread_index == 0) {
     concurrent = std::make_unique<SL<int, int>>();
     for (auto i = 0; i < kThousand * kThousand; ++i) {
-      auto num = dis(gen);
-      concurrent->Insert(num, num);
+      concurrent->Insert(dis(gen), dis(gen));
     }
   }
 
   for (auto _ : state) {
     if (state.thread_index == 0) {
       for (auto i = 0; i < kThousand; ++i) {
-        auto num = dis(gen);
-        concurrent->Insert(num, num);
+        concurrent->Insert(dis(gen), dis(gen));
       }
     } else if (state.threads > 1 && state.thread_index == 1) {
       for (auto i = 0; i < kThousand; ++i) {
