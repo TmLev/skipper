@@ -133,9 +133,10 @@ auto ConcurrentSkipListMap<Key, Value>::Erase(const Key& key) -> bool {
       candidate = successors[level];
     }
 
-    auto has_candidate = maybe_level && candidate->is_linked.load() &&
-                         candidate->level == maybe_level.value() &&
-                         !candidate->is_erased.load();
+    auto has_candidate =
+        maybe_guard || (maybe_level && candidate->is_linked.load() &&
+                        candidate->level == maybe_level.value() &&
+                        !candidate->is_erased.load());
 
     if (!has_candidate) {
       return false;
