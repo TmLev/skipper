@@ -207,8 +207,8 @@ TEST_CASE("One thread inserts and second tries to erase the same element",
 
   int num = 10;
 
-  auto first_numbers = chunk(10 * kThousand, random(num, num)).get();
-  auto second_numbers = chunk(10 * kThousand, random(num, num)).get();
+  auto first_numbers = chunk(kThousand, random(num, num)).get();
+  auto second_numbers = chunk(kThousand, random(num, num)).get();
 
   auto first = std::thread([&]() {
     for (auto n : first_numbers) {
@@ -267,9 +267,8 @@ TEST_CASE(
   std::size_t read_threads_count = 4;
 
   auto write_numbers = std::vector<std::vector<int>>(write_threads_count);
-  write_numbers[0] = chunk(10 * kThousand, random(0, kThousand - 1)).get();
-  write_numbers[1] =
-      chunk(10 * kThousand, random(kThousand, 2 * kThousand)).get();
+  write_numbers[0] = chunk(kThousand, random(0, kThousand - 1)).get();
+  write_numbers[1] = chunk(kThousand, random(kThousand, 2 * kThousand)).get();
 
   auto first_write_size = write_numbers[0].size();
   auto second_write_size = write_numbers[1].size();
@@ -280,41 +279,40 @@ TEST_CASE(
       std::vector<int>(std::begin(write_numbers[0]),
                        std::begin(write_numbers[0]) + first_write_size / 2);
   read_numbers[1] =
-      std::vector<int>(std::begin(write_numbers[0]) + first_write_size / 2 + 1,
+      std::vector<int>(std::begin(write_numbers[0]) + first_write_size / 2,
                        std::end(write_numbers[0]));
 
   read_numbers[2] =
       std::vector<int>(std::begin(write_numbers[1]),
                        std::begin(write_numbers[1]) + second_write_size / 2);
   read_numbers[3] =
-      std::vector<int>(std::begin(write_numbers[1]) + second_write_size / 2 + 1,
+      std::vector<int>(std::begin(write_numbers[1]) + second_write_size / 2,
                        std::end(write_numbers[1]));
 
   auto write_threads = std::vector<std::thread>{};
+  write_threads.reserve(write_threads_count);
   for (std::size_t i = 0; i < write_threads_count; ++i) {
-    auto thread = std::thread([&]() {
-        for (auto n : write_numbers[i]) {
-            skip_list.Insert(n, n);
-        }
+    write_threads.emplace_back([&skip_list, &write_numbers, i]() {
+      for (auto n : write_numbers[i]) {
+        skip_list.Insert(n, n);
+      }
     });
-    write_threads.push_back(std::move(thread));
   }
 
-  for (std::size_t i = 0; i < write_threads_count; ++i) {
-    write_threads[i].join();
+  for (auto&& t : write_threads) {
+    t.join();
   }
 
   auto read_threads = std::vector<std::thread>{};
   for (std::size_t i = 0; i < read_threads_count; ++i) {
-    auto thread = std::thread([&]() {
+    read_threads.emplace_back([&skip_list, &read_numbers, i]() {
       for (auto n : read_numbers[i]) {
         REQUIRE(skip_list.Contains(n));
       }
     });
-    read_threads.push_back(std::move(thread));
   }
 
-  for (std::size_t i = 0; i < read_threads_count; ++i) {
-    read_threads[i].join();
+  for (auto&& t : read_threads) {
+    t.join();
   }
 }
