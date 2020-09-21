@@ -17,11 +17,13 @@ jobs:
     name: Build CMake project
     runs-on: ubuntu-20.04
     steps:
-      - run: sudo apt-get -y install ccache clang-tidy-10
+      - run: sudo apt-get -y install clang-10 ccache clang-tidy-10
       - uses: actions/checkout@v2
         with:
           submodules: true
       - run: scripts/build.sh
+        env:
+          CXX: clang++-10
       - uses: actions/upload-artifact@v2
         with:
           name: build
