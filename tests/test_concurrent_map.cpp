@@ -263,35 +263,32 @@ TEST_CASE(
     "Tho threads insert different numbers, then four threads check for contain",
     "[Concurrency]") {
   auto skip_list = SL<int, int>{};
-  std::size_t write_threads_count = 2;
-  std::size_t read_threads_count = 4;
 
-  auto write_numbers = std::vector<std::vector<int>>(write_threads_count);
-  write_numbers[0] = chunk(kThousand, random(0, kThousand - 1)).get();
-  write_numbers[1] = chunk(kThousand, random(kThousand, 2 * kThousand)).get();
+  constexpr auto kWriteThreadCount = std::size_t{2};
+  constexpr auto kReadThreadCount = std::size_t{4};
+
+  auto write_numbers = std::vector<std::vector<int>>{
+      chunk(kThousand, random(0, kThousand - 1)).get(),
+      chunk(kThousand, random(kThousand, 2 * kThousand)).get(),
+  };
 
   auto first_write_size = write_numbers[0].size();
   auto second_write_size = write_numbers[1].size();
 
-  auto read_numbers = std::vector<std::vector<int>>(read_threads_count);
-
-  read_numbers[0] =
-      std::vector<int>(std::begin(write_numbers[0]),
-                       std::begin(write_numbers[0]) + first_write_size / 2);
-  read_numbers[1] =
-      std::vector<int>(std::begin(write_numbers[0]) + first_write_size / 2,
-                       std::end(write_numbers[0]));
-
-  read_numbers[2] =
-      std::vector<int>(std::begin(write_numbers[1]),
-                       std::begin(write_numbers[1]) + second_write_size / 2);
-  read_numbers[3] =
-      std::vector<int>(std::begin(write_numbers[1]) + second_write_size / 2,
-                       std::end(write_numbers[1]));
+  auto read_numbers = std::vector<std::vector<int>>{
+      {std::begin(write_numbers[0]),
+          std::begin(write_numbers[0]) + first_write_size / 2},
+      {std::begin(write_numbers[0]) + first_write_size / 2,
+          std::end(write_numbers[0])},
+      {std::begin(write_numbers[1]),
+          std::begin(write_numbers[1]) + second_write_size / 2},
+      {std::begin(write_numbers[1]) + second_write_size / 2,
+          std::end(write_numbers[1])}
+  };
 
   auto write_threads = std::vector<std::thread>{};
-  write_threads.reserve(write_threads_count);
-  for (std::size_t i = 0; i < write_threads_count; ++i) {
+  write_threads.reserve(kWriteThreadCount);
+  for (auto i = std::size_t{0}; i < kWriteThreadCount; ++i) {
     write_threads.emplace_back([&skip_list, &write_numbers, i]() {
       for (auto n : write_numbers[i]) {
         skip_list.Insert(n, n);
@@ -304,7 +301,7 @@ TEST_CASE(
   }
 
   auto read_threads = std::vector<std::thread>{};
-  for (std::size_t i = 0; i < read_threads_count; ++i) {
+  for (auto i = std::size_t{0}; i < kReadThreadCount; ++i) {
     read_threads.emplace_back([&skip_list, &read_numbers, i]() {
       for (auto n : read_numbers[i]) {
         REQUIRE(skip_list.Contains(n));
