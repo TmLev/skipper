@@ -27,14 +27,7 @@ jobs:
         use:
           - after-build
 
-    - stage: benchmarks
-      script: scripts/benchmarks.sh
-      workspaces:
-        use:
-          - after-build
-
 stages:
   - code-style
   - build
   - tests
-  - benchmarks
