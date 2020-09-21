@@ -272,18 +272,14 @@ TEST_CASE(
       chunk(kThousand, random(kThousand, 2 * kThousand)).get(),
   };
 
-  auto first_write_size = write_numbers[0].size();
-  auto second_write_size = write_numbers[1].size();
+  auto first_mid = std::begin(write_numbers[0]) + write_numbers[0].size() / 2;
+  auto second_mid = std::begin(write_numbers[1]) + write_numbers[1].size() / 2;
 
-  auto read_numbers = std::vector<std::vector<int>>{
-      {std::begin(write_numbers[0]),
-       std::begin(write_numbers[0]) + first_write_size / 2},
-      {std::begin(write_numbers[0]) + first_write_size / 2,
-       std::end(write_numbers[0])},
-      {std::begin(write_numbers[1]),
-       std::begin(write_numbers[1]) + second_write_size / 2},
-      {std::begin(write_numbers[1]) + second_write_size / 2,
-       std::end(write_numbers[1])}};
+  auto read_numbers =
+      std::vector<std::vector<int>>{{std::begin(write_numbers[0]), first_mid},
+                                    {first_mid, std::end(write_numbers[0])},
+                                    {std::begin(write_numbers[1]), second_mid},
+                                    {second_mid, std::end(write_numbers[1])}};
 
   auto write_threads = std::vector<std::thread>{};
   write_threads.reserve(kWriteThreadCount);
