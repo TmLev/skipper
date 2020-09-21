@@ -277,14 +277,13 @@ TEST_CASE(
 
   auto read_numbers = std::vector<std::vector<int>>{
       {std::begin(write_numbers[0]),
-          std::begin(write_numbers[0]) + first_write_size / 2},
+       std::begin(write_numbers[0]) + first_write_size / 2},
       {std::begin(write_numbers[0]) + first_write_size / 2,
-          std::end(write_numbers[0])},
+       std::end(write_numbers[0])},
       {std::begin(write_numbers[1]),
-          std::begin(write_numbers[1]) + second_write_size / 2},
+       std::begin(write_numbers[1]) + second_write_size / 2},
       {std::begin(write_numbers[1]) + second_write_size / 2,
-          std::end(write_numbers[1])}
-  };
+       std::end(write_numbers[1])}};
 
   auto write_threads = std::vector<std::thread>{};
   write_threads.reserve(kWriteThreadCount);
