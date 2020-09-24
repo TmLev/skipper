@@ -6,3 +6,5 @@ target_link_libraries(test_concurrent_set PRIVATE pthread)
 
 add_skipper_test(test_concurrent_map)
 target_link_libraries(test_concurrent_map PRIVATE pthread)
+
+add_skipper_test(test_arena)
