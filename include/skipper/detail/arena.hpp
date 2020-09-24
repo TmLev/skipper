@@ -34,7 +34,6 @@ class Arena : public Allocator {
   Cursor cursor_{0};
 };
 
-
 }  // namespace skipper::detail
 
 #endif  // SKIPPER_DETAIL_ARENA_HPP

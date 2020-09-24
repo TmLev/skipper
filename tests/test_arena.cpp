@@ -12,7 +12,7 @@ TEST_CASE("Arena allocates", "[Correctness]") {
 
   for (int i = 0; i < 4; ++i) {
     auto raw = arena.Allocate(sizeof(int));
-    auto number = new(raw) int{i * i};
+    auto number = new (raw) int{i * i};
     ss << *number << ' ';
   }
 
