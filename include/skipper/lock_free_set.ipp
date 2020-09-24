@@ -20,6 +20,7 @@ struct LockFreeSkipListSet<T, TAllocator>::Node {
   NodePtrList forward;
   Flag is_erased{false};
 };
+
 template <typename T, class TAllocator>
 LockFreeSkipListSet<T, TAllocator>::Node::Node(T val, Level level)
     : value(std::move(val)), forward(static_cast<std::size_t>(level) + 1) {
