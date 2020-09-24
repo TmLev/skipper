@@ -1,6 +1,10 @@
 #ifndef SKIPPER_LOCK_FREE_SET_HPP
 #define SKIPPER_LOCK_FREE_SET_HPP
 
+#include <atomic>
+#include <memory>
+#include <vector>
+
 #include "skipper/detail/allocator.hpp"
 #include "skipper/detail/arena.hpp"
 
