@@ -6,3 +6,6 @@ target_link_libraries(benchmark_concurrent_set PRIVATE pthread)
 
 add_skipper_benchmark(benchmark_concurrent_map)
 target_link_libraries(benchmark_concurrent_map PRIVATE pthread)
+
+add_skipper_benchmark(benchmark_lock_free_set)
+target_link_libraries(benchmark_lock_free_set PRIVATE pthread)
