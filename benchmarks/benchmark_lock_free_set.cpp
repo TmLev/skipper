@@ -55,14 +55,14 @@ static auto LockFreeInsertQueries(benchmark::State& state) -> void {
 
 BENCHMARK(LockFreeContainsQueries)
     ->Threads(1)
-//    ->Threads(2)
-//    ->Threads(4)
-//    ->Threads(6)
-//    ->Threads(8)
-//    ->Threads(10)
-//    ->Threads(12)
-//    ->Threads(14)
-//    ->Threads(16)
+    ->Threads(2)
+    ->Threads(4)
+    ->Threads(6)
+    ->Threads(8)
+    ->Threads(10)
+    ->Threads(12)
+    ->Threads(14)
+    ->Threads(16)
     ->UseRealTime();
 
 BENCHMARK(LockFreeInsertQueries)
