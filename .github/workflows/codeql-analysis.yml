@@ -35,7 +35,7 @@ jobs:
 
     - name: Build CMake project
       run: |
-        sudo apt-get -y install ccache clang-tidy-10
+        sudo apt-get -y install ccache
         scripts/build.sh
 
     - name: Perform CodeQL Analysis
