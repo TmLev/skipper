@@ -37,6 +37,8 @@ jobs:
       run: |
         sudo apt-get -y install ccache
         scripts/build.sh
+      env:
+        CXX: clang++-10
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
