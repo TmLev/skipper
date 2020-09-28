@@ -33,7 +33,7 @@ class LockFreeSkipListSet {
   auto Contains(const T& value) -> bool;
   auto Insert(const T& value) -> bool;
 
- public:
+ private:
   using Allocator = skipper::detail::Allocator;
   using AllocatorPtr = std::shared_ptr<Allocator>;
 
