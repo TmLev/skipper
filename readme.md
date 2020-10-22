@@ -1,4 +1,4 @@
-# [WIP] Skipper
+# Skipper
 
 | Platform       | Build status |
 |----------------|:------------:|
@@ -7,7 +7,7 @@
 
 ## What is it?
 
-__Skipper__ is a C++17 headers-only library with various implementations of __Skip List__ data structure.
+__Skipper__ is a C++17 header-only library with various implementations of __Skip List__ data structure.
 
 ## How to use?
 
