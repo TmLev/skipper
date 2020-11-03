@@ -12,9 +12,6 @@
 namespace skipper {
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// SequentialSkipListMap::Node
-////
 
 template <typename Key, typename Value>
 struct SequentialSkipListMap<Key, Value>::Node {
@@ -41,9 +38,6 @@ auto SequentialSkipListMap<Key, Value>::Node::Next() const
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// SequentialSkipListMap::Iterator
-////
 
 template <typename Key, typename Value>
 SequentialSkipListMap<Key, Value>::Iterator::Iterator(
@@ -101,9 +95,6 @@ auto SequentialSkipListMap<Key, Value>::Iterator::operator!=(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// SequentialSkipListMap: public interface
-////
 
 template <typename Key, typename Value>
 SequentialSkipListMap<Key, Value>::~SequentialSkipListMap() {
@@ -198,9 +189,6 @@ auto SequentialSkipListMap<Key, Value>::End() const
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// SequentialSkipListMap: private interface
-////
 
 template <typename Key, typename Value>
 auto SequentialSkipListMap<Key, Value>::Traverse(

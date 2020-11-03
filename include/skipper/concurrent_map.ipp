@@ -9,9 +9,6 @@
 namespace skipper {
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// SequentialSkipListMap::Node
-////
 
 template <typename Key, typename Value>
 struct ConcurrentSkipListMap<Key, Value>::Node {
@@ -46,9 +43,6 @@ struct ConcurrentSkipListMap<Key, Value>::FindResult {
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// ConcurrentSkipListSet: public interface
-////
 
 template <typename Key, typename Value>
 ConcurrentSkipListMap<Key, Value>::ConcurrentSkipListMap() {
@@ -177,9 +171,6 @@ auto ConcurrentSkipListMap<Key, Value>::Erase(const Key& key) -> bool {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// ConcurrentSkipListSet: private interface
-////
 
 template <typename Key, typename Value>
 auto ConcurrentSkipListMap<Key, Value>::Find(const Key& key)

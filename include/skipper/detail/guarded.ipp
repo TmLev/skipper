@@ -6,9 +6,6 @@
 namespace skipper::detail {
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// Guarded::Proxy
-////
 
 template <typename T>
 Guarded<T>::Proxy::Proxy(T& object, std::mutex& mutex)
@@ -21,9 +18,6 @@ auto Guarded<T>::Proxy::operator->() -> T* {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// Guarded: public interface
-////
 
 template <typename T>
 auto Guarded<T>::operator->() -> Proxy {

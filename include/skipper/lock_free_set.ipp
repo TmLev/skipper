@@ -6,9 +6,6 @@
 namespace skipper {
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// LockFreeSkipList: Node
-////
 
 template <typename T, class TAllocator>
 struct LockFreeSkipListSet<T, TAllocator>::Node {
@@ -27,9 +24,6 @@ LockFreeSkipListSet<T, TAllocator>::Node::Node(T val, Level level)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// LockFreeSkipList: FindResult
-////
 
 template <typename T, class TAllocator>
 struct LockFreeSkipListSet<T, TAllocator>::FindResult {
@@ -40,9 +34,6 @@ struct LockFreeSkipListSet<T, TAllocator>::FindResult {
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// LockFreeSkipList: public interface
-////
 
 template <typename T, class TAllocator>
 LockFreeSkipListSet<T, TAllocator>::LockFreeSkipListSet() {
@@ -110,9 +101,6 @@ auto LockFreeSkipListSet<T, TAllocator>::Insert(const T& value) -> bool {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// LockFreeSkipList: private interface
-////
 
 template <typename T, class TAllocator>
 auto LockFreeSkipListSet<T, TAllocator>::New(const T& value, Level level)

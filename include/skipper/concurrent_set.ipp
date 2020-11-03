@@ -8,9 +8,6 @@
 namespace skipper {
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// ConcurrentSkipListSet::Node
-////
 
 template <typename T>
 struct ConcurrentSkipListSet<T>::Node {
@@ -35,9 +32,6 @@ ConcurrentSkipListSet<T>::Node::Node(T val, Level lvl)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// ConcurrentSkipListSet::FindResult
-////
 
 template <typename T>
 struct ConcurrentSkipListSet<T>::FindResult {
@@ -48,9 +42,6 @@ struct ConcurrentSkipListSet<T>::FindResult {
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// ConcurrentSkipListSet: public interface
-////
 
 template <typename T>
 ConcurrentSkipListSet<T>::ConcurrentSkipListSet() {
@@ -197,9 +188,6 @@ auto ConcurrentSkipListSet<T>::Erase(const T& value) -> bool {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////
-//// ConcurrentSkipListSet: private interface
-////
 
 template <typename T>
 auto ConcurrentSkipListSet<T>::Find(const T& value)
