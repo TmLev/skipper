@@ -1,6 +1,8 @@
 #ifndef SKIPPER_LOCK_FREE_SET_IPP
 #define SKIPPER_LOCK_FREE_SET_IPP
 
+#include <utility>
+
 #include "skipper/lock_free_set.hpp"
 
 namespace skipper {
@@ -139,8 +141,7 @@ retry:
         }
 
         if (curr != tail_ && curr->value < value) {
-          pred = curr;
-          curr = succ;
+          pred = std::exchange(curr, succ);
         } else {
           break;
         }
