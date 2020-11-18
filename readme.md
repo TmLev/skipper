@@ -6,7 +6,7 @@
 
 __Skipper__ is a C++17 header-only library with various implementations of __Skip List__ data structure.
 
-## Benchmark results
+## Benchmarks
 
 For measuring performance [Google Benchmark library](https://github.com/google/benchmark) was used. Source code of benchmarks can be found [here](https://github.com/TmLev/skipper/tree/master/benchmarks).
 
