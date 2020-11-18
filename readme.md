@@ -6,6 +6,11 @@
 
 __Skipper__ is a C++17 header-only library with various implementations of __Skip List__ data structure.
 
+## How to use?
+
+* Examples can be found [here](docs/examples.md).
+* Drop headers from [`include/skipper`](include/skipper) directory in your project or use [CMake](docs/cmake.md).
+
 ## Benchmarks
 
 For measuring performance [Google Benchmark library](https://github.com/google/benchmark) was used. Source code of benchmarks can be found [here](https://github.com/TmLev/skipper/tree/master/benchmarks).
@@ -26,11 +31,6 @@ Here `Insert()` method performance is measured. For setup 10^3 random numbers fr
 Here both methods are tested. 10^4 random numbers from `R = (-10^4; 10^4)` are inserted for a setup. During benchmarks itself one thread inserts random numbers from `R` the endless loop, while other threads are checking for contains random numbers from `R`.
 
 ![One Insert & Many Contains benchmark graph](docs/images/one-insert-many-contains.png)
-
-## How to use?
-
-* Examples can be found [here](docs/examples.md).
-* Drop headers from [`include/skipper`](include/skipper) directory in your project or use [CMake](docs/cmake.md).
 
 ## How to contribute?
 
