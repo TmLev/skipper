@@ -25,7 +25,7 @@ Here `Insert()` method performance is measured. For setup 10^3 random numbers fr
 ### One Insert & Many Contains
 Here both methods are tested. 10^4 random numbers from `R = (-10^4; 10^4)` are inserted for a setup. During benchmarks itself one thread inserts random numbers from `R` the endless loop, while other threads are checking for contains random numbers from `R`.
 
-![One Insert & Many Contains benchmark graph](docs/images/one_insert_many_contains.png)
+![One Insert & Many Contains benchmark graph](docs/images/one-insert-many-contains.png)
 
 ## How to use?
 
