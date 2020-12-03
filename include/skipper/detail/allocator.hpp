@@ -5,9 +5,9 @@
 
 namespace skipper::detail {
 
-class Allocator {
- public:
+struct Allocator {
   virtual auto Allocate(std::size_t bytes) -> char* = 0;
+
   virtual ~Allocator() = default;
 };
 
