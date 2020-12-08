@@ -85,7 +85,7 @@ auto main() -> int {
 
   for (auto number : {10, 5, 3, 1, 2}) {
     skip_list.Insert(number);
-  }
+  } // 1 2 3 5 10
 
   for (auto it = skip_list.Find(3); it != skip_list.End(); ++it) {
     std::cout << *it << ' ';
