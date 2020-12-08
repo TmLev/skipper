@@ -1,7 +1,7 @@
 # Examples
 
-__Skipper__ provides different variations of `Set` and `Map` implementations with STL-like interface 
-which use __Skip List__ under the hood.
+Skipper provides different variations of `Set` and `Map` implementations with STL-like interface 
+which use skip list under the hood.
 
 ## Sequential
 
