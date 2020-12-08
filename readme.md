@@ -4,7 +4,7 @@
 
 ## What is it?
 
-__Skipper__ is a C++17 header-only library with various implementations of __Skip List__ data structure.
+Skipper is a C++17 header-only library with various implementations of skip list data structure.
 
 ## How to use?
 
