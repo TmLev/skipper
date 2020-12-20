@@ -29,7 +29,6 @@ LockFreeSkipListSet<T, TAllocator>::Node::Node(T val, Level level)
 
 template <typename T, class TAllocator>
 struct LockFreeSkipListSet<T, TAllocator>::FindResult {
- public:
   bool found;
   NodePtrList predecessors{static_cast<std::size_t>(kMaxLevel) + 1};
   NodePtrList successors{static_cast<std::size_t>(kMaxLevel) + 1};
