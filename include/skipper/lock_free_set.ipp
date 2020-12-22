@@ -46,7 +46,7 @@ LockFreeSkipListSet<T, TAllocator>::LockFreeSkipListSet() {
 
 template <typename T, class TAllocator>
 auto LockFreeSkipListSet<T, TAllocator>::Contains(const T& value) -> bool {
-  auto [found, s, p] = Find(value);
+  const auto [found, s, p] = Find(value);
   return found;
 }
 
