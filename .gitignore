@@ -1,7 +1,8 @@
 ### Project ###
 ## Directories
 .idea
-cmake-build-*/
+cmake-build*
+build*
 
 ### Files
 docker/docker-compose.yml
