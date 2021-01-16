@@ -84,7 +84,7 @@ auto SequentialSkipListSet<T>::Iterator::operator!=(
 template <typename T>
 SequentialSkipListSet<T>::~SequentialSkipListSet() {
   for (auto node = head_; node;) {
-    auto next = node->forward[0];
+    const auto next = node->forward[0];
     node->forward.clear();
     node = next;
   }
